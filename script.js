@@ -1,4 +1,4 @@
-// LocalStorage Keys
+// LocalStorage Data Keys
 const ZOMATO_KEY = 'zomato_logs';
 const CGPSC_KEY = 'cgpsc_logs';
 
@@ -11,20 +11,20 @@ const navBtns = document.querySelectorAll('.nav-btn');
 const tabContents = document.querySelectorAll('.tab-content');
 const currentDateEl = document.getElementById('current-date');
 
-// Header Badges
+// Header Stats
 const headerEarnings = document.getElementById('header-earnings');
 const headerStudyHours = document.getElementById('header-study-hours');
 
-// Dashboard KPI Elements
+// Dashboard Counters
 const totalEarningsEl = document.getElementById('total-earnings');
 const totalDeliveriesEl = document.getElementById('total-deliveries');
 const totalStudyHoursEl = document.getElementById('total-study-hours');
 const totalTopicsEl = document.getElementById('total-topics');
 
-// Chart Contexts
+// Chart Instances
 let overviewChart, earningsTrendChart, studyTrendChart;
 
-// Initialize App
+// App Init
 document.addEventListener('DOMContentLoaded', () => {
     setCurrentDate();
     setupNavigation();
@@ -33,13 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
     initCharts();
 });
 
-// Set Current Date in Header
 function setCurrentDate() {
     const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
     currentDateEl.textContent = new Date().toLocaleDateString('en-IN', options);
 }
 
-// Navigation & Tab Switching
+// Navigation Handler
 function setupNavigation() {
     navBtns.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -58,9 +57,9 @@ function setupNavigation() {
     });
 }
 
-// Form Event Listeners
+// Forms Handlers
 function setupFormListeners() {
-    // Zomato Form Submit
+    // Zomato Entry Submit
     document.getElementById('zomato-form').addEventListener('submit', (e) => {
         e.preventDefault();
         
@@ -78,7 +77,7 @@ function setupFormListeners() {
         setDefaultDates();
     });
 
-    // CGPSC Form Submit
+    // CGPSC Entry Submit
     document.getElementById('cgpsc-form').addEventListener('submit', (e) => {
         e.preventDefault();
 
@@ -99,21 +98,18 @@ function setupFormListeners() {
     setDefaultDates();
 }
 
-// Set Today's Date as Default in Forms
 function setDefaultDates() {
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('zomato-date').value = today;
     document.getElementById('cgpsc-date').value = today;
 }
 
-// Save to LocalStorage & Refresh UI
 function saveData() {
     localStorage.setItem(ZOMATO_KEY, JSON.stringify(zomatoLogs));
     localStorage.setItem(CGPSC_KEY, JSON.stringify(cgpscLogs));
     updateUI();
 }
 
-// Global UI Update
 function updateUI() {
     renderZomatoTable();
     renderCgpscTable();
@@ -121,7 +117,7 @@ function updateUI() {
     updateOverviewChart();
 }
 
-// Render Zomato History Table
+// Render Tables
 function renderZomatoTable() {
     const tbody = document.getElementById('zomato-table-body');
     tbody.innerHTML = '';
@@ -139,7 +135,6 @@ function renderZomatoTable() {
     });
 }
 
-// Render CGPSC History Table
 function renderCgpscTable() {
     const tbody = document.getElementById('cgpsc-table-body');
     tbody.innerHTML = '';
@@ -157,7 +152,7 @@ function renderCgpscTable() {
     });
 }
 
-// Delete Handlers
+// Global Delete Methods
 window.deleteZomatoLog = function(id) {
     zomatoLogs = zomatoLogs.filter(log => log.id !== id);
     saveData();
@@ -168,7 +163,7 @@ window.deleteCgpscLog = function(id) {
     saveData();
 };
 
-// Calculate and Update Dashboard KPIs
+// Calculations
 function updateKPIs() {
     const totalEarnings = zomatoLogs.reduce((sum, log) => sum + log.earnings, 0);
     const totalDeliveries = zomatoLogs.reduce((sum, log) => sum + log.deliveries, 0);
@@ -184,7 +179,7 @@ function updateKPIs() {
     headerStudyHours.textContent = `${totalStudyHours} hrs`;
 }
 
-// Chart.js Configuration
+// Chart.js Implementations
 function initCharts() {
     const ctxOverview = document.getElementById('overviewChart').getContext('2d');
     const ctxEarnings = document.getElementById('earningsTrendChart').getContext('2d');
@@ -285,7 +280,6 @@ function getChartOptions() {
     };
 }
 
-// Update Overview Chart Data
 function updateOverviewChart() {
     if (!overviewChart) return;
 
@@ -308,17 +302,14 @@ function updateOverviewChart() {
     overviewChart.update();
 }
 
-// Update Detailed Analytics Tab Charts
 function updateAnalyticsCharts() {
     if (!earningsTrendChart || !studyTrendChart) return;
 
-    // Earnings Data
     const zomatoSorted = [...zomatoLogs].sort((a, b) => new Date(a.date) - new Date(b.date));
     earningsTrendChart.data.labels = zomatoSorted.map(l => l.date);
     earningsTrendChart.data.datasets[0].data = zomatoSorted.map(l => l.earnings);
     earningsTrendChart.update();
 
-    // Study Data Aggregated by Date
     const studyByDate = cgpscLogs.reduce((acc, log) => {
         acc[log.date] = (acc[log.date] || 0) + log.hours;
         return acc;
