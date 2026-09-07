@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPSC Prep — Prelims Intelligence Platform</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <div class="brand-logo">C</div>
+            <div>
+                <h2>CGPSC Prep</h2>
+                <span>Prelims Intelligence</span>
+            </div>
+        </div>
+
+        <nav class="nav">
+
+            <p class="nav-title">MAIN</p>
+
+            <button class="nav-item active" data-section="dashboard">
+                <span>⌂</span>
+                Dashboard
+            </button>
+
+            <button class="nav-item" data-section="quiz">
+                <span>?</span>
+                Daily Quiz
+            </button>
+
+            <button class="nav-item" data-section="pyq">
+                <span>◫</span>
+                PYQ Practice
+            </button>
+
+            <button class="nav-item" data-section="mock">
+                <span>▣</span>
+                Mock Tests
+            </button>
+
+            <p class="nav-title">PREPARATION</p>
+
+            <button class="nav-item" data-section="subjects">
+                <span>◈</span>
+                Subjects
+            </button>
+
+            <button class="nav-item" data-section="revision">
+                <span>↻</span>
+                Revision
+            </button>
+
+            <button class="nav-item" data-section="weakness">
+                <span>⚠</span>
+                Weak Topics
+            </button>
+
+            <button class="nav-item" data-section="current">
+                <span>◉</span>
+                Current Affairs
+            </button>
+
+            <p class="nav-title">ACCOUNT</p>
+
+            <button class="nav-item" data-section="analytics">
+                <span>⌁</span>
+                Analytics
+            </button>
+
+            <button class="nav-item" data-section="settings">
+                <span>⚙</span>
+                Settings
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="upgrade-card">
+                <div class="upgrade-icon">⚡</div>
+                <h3>Go Pro</h3>
+                <p>Unlock unlimited mocks, PYQs & analytics.</p>
+                <button id="upgradeBtn">Upgrade Now</button>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- HEADER -->
+        <header class="header">
+
+            <button class="mobile-menu" id="mobileMenu">☰</button>
+
+            <div>
+                <h1 id="pageTitle">Good Morning, Aspirant 👋</h1>
+                <p id="pageSubtitle">Let's make today count for your CGPSC preparation.</p>
+            </div>
+
+            <div class="header-actions">
+
+                <button class="icon-btn" id="notificationBtn">
+                    🔔
+                    <span class="notification-dot"></span>
+                </button>
+
+                <div class="profile">
+                    <div class="avatar">A</div>
+                    <div class="profile-info">
+                        <strong>Aspirant</strong>
+                        <span>Prelims 2027</span>
+                    </div>
+                    <span class="profile-arrow">⌄</span>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+        <div class="content">
+
+
+            <!-- DASHBOARD -->
+            <section class="page-section active" id="dashboard">
+
+                <div class="welcome-card">
+
+                    <div>
+                        <span class="eyebrow">YOUR PREPARATION</span>
+                        <h2>Stay consistent. Crack CGPSC.</h2>
+                        <p>
+                            Your preparation dashboard tracks your accuracy,
+                            weak areas and revision progress.
+                        </p>
+
+                        <button class="primary-btn" data-go="quiz">
+                            Start Today's Quiz →
+                        </button>
+                    </div>
+
+                    <div class="target-box">
+                        <span>Today's Target</span>
+                        <strong>60</strong>
+                        <small>Questions</small>
+
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 65%"></div>
+                        </div>
+
+                        <p>39 / 60 completed</p>
+                    </div>
+
+                </div>
+
+
+                <!-- STAT CARDS -->
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <span>Total Questions</span>
+                            <div class="stat-icon blue">?</div>
+                        </div>
+                        <strong>1,248</strong>
+                        <div class="stat-bottom positive">↑ 18% <span>this month</span></div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <span>Accuracy</span>
+                            <div class="stat-icon green">✓</div>
+                        </div>
+                        <strong>72.4%</strong>
+                        <div class="stat-bottom positive">↑ 4.8% <span>improvement</span></div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <span>Study Streak</span>
+                            <div class="stat-icon orange">🔥</div>
+                        </div>
+                        <strong>12 Days</strong>
+                        <div class="stat-bottom">Best: 21 days</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <span>Mock Average</span>
+                            <div class="stat-icon purple">★</div>
+                        </div>
+                        <strong>81.5</strong>
+                        <div class="stat-bottom positive">↑ 6.2 marks</div>
+                    </div>
+
+                </div>
+
+
+                <!-- DASHBOARD GRID -->
+                <div class="dashboard-grid">
+
+                    <div class="panel performance-panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <h3>Subject Performance</h3>
+                                <p>Your accuracy by subject</p>
+                            </div>
+
+                            <select id="performancePeriod">
+                                <option>Last 30 Days</option>
+                                <option>Last 7 Days</option>
+                                <option>All Time</option>
+                            </select>
+                        </div>
+
+                        <div class="subject-performance">
+
+                            <div class="subject-row">
+                                <div class="subject-name">
+                                    <span>Chhattisgarh GK</span>
+                                    <strong>84%</strong>
+                                </div>
+                                <div class="progress"><div class="progress-bar good" style="width:84%"></div></div>
+                            </div>
+
+                            <div class="subject-row">
+                                <div class="subject-name">
+                                    <span>Indian Polity</span>
+                                    <strong>78%</strong>
+                                </div>
+                                <div class="progress"><div class="progress-bar good" style="width:78%"></div></div>
+                            </div>
+
+                            <div class="subject-row">
+                                <div class="subject-name">
+                                    <span>History</span>
+                                    <strong>74%</strong>
+                                </div>
+                                <div class="progress"><div class="progress-bar" style="width:74%"></div></div>
+                            </div>
+
+                            <div class="subject-row">
+                                <div class="subject-name">
+                                    <span>Geography</span>
+                                    <strong>68%</strong>
+                                </div>
+                                <div class="progress"><div class="progress-bar" style="width:68%"></div></div>
+                            </div>
+
+                            <div class="subject-row">
+                                <div class="subject-name">
+                                    <span>Economy</span>
+                                    <strong>55%</strong>
+                                </div>
+                                <div class="progress"><div class="progress-bar warning" style="width:55%"></div></div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel weak-panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <h3>Weak Topics</h3>
+                                <p>Topics that need attention</p>
+                            </div>
+
+                            <button class="text-btn" data-go="weakness">View All</button>
+                        </div>
+
+                        <div class="weak-list">
+
+                            <div class="weak-item">
+                                <div class="weak-number">01</div>
+                                <div>
+                                    <strong>Chhattisgarh Economy</strong>
+                                    <span>42% accuracy</span>
+                                </div>
+                                <button class="practice-btn">Practice</button>
+                            </div>
+
+                            <div class="weak-item">
+                                <div class="weak-number">02</div>
+                                <div>
+                                    <strong>Indian Economy</strong>
+                                    <span>48% accuracy</span>
+                                </div>
+                                <button class="practice-btn">Practice</button>
+                            </div>
+
+                            <div class="weak-item">
+                                <div class="weak-number">03</div>
+                                <div>
+                                    <strong>Environment</strong>
+                                    <span>53% accuracy</span>
+                                </div>
+                                <button class="practice-btn">Practice</button>
+                            </div>
+
+                            <div class="weak-item">
+                                <div class="weak-number">04</div>
+                                <div>
+                                    <strong>Modern History</strong>
+                                    <span>57% accuracy</span>
+                                </div>
+                                <button class="practice-btn">Practice</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOWER GRID -->
+                <div class="dashboard-grid lower-grid">
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <h3>Continue Learning</h3>
+                                <p>Pick up where you left off</p>
+                            </div>
+                        </div>
+
+                        <div class="learning-card">
+
+                            <div class="learning-icon">📚</div>
+
+                            <div class="learning-info">
+                                <span>CHHATTISGARH SPECIAL</span>
+                                <h4>History & Culture</h4>
+
+                                <div class="progress">
+                                    <div class="progress-bar" style="width:62%"></div>
+                                </div>
+
+                                <small>62% completed • 18 topics remaining</small>
+                            </div>
+
+                            <button class="circle-btn">→</button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <h3>Recent Activity</h3>
+                                <p>Your latest preparation activity</p>
+                            </div>
+                        </div>
+
+                        <div class="activity-list">
+
+                            <div class="activity">
+                                <div class="activity-icon success">✓</div>
+                                <div>
+                                    <strong>Daily Quiz completed</strong>
+                                    <span>42/50 correct • 2 hours ago</span>
+                                </div>
+                            </div>
+
+                            <div class="activity">
+                                <div class="activity-icon mock">▣</div>
+                                <div>
+                                    <strong>Mock Test #08 attempted</strong>
+                                    <span>86/100 • Yesterday</span>
+                                </div>
+                            </div>
+
+                            <div class="activity">
+                                <div class="activity-icon study">📖</div>
+                                <div>
+                                    <strong>Polity revision completed</strong>
+                                    <span>Article 1–50 • Yesterday</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- QUIZ -->
+            <section class="page-section" id="quiz">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">PRACTICE</span>
+                        <h2>Daily Quiz</h2>
+                        <p>Improve your accuracy with focused daily practice.</p>
+                    </div>
+                </div>
+
+                <div class="quiz-start-card">
+
+                    <div class="quiz-icon">?</div>
+
+                    <h2>Today's CGPSC Quiz</h2>
+
+                    <p>
+                        20 questions • Mixed subjects • Negative marking
+                    </p>
+
+                    <div class="quiz-meta">
+                        <span>⏱ 20 Minutes</span>
+                        <span>🎯 +2 / -0.66</span>
+                        <span>📊 Difficulty: Moderate</span>
+                    </div>
+
+                    <button class="primary-btn" id="startQuiz">
+                        Start Quiz
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- PYQ -->
+            <section class="page-section" id="pyq">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">PREVIOUS YEAR QUESTIONS</span>
+                        <h2>PYQ Practice</h2>
+                        <p>Master the pattern by solving previous CGPSC questions.</p>
+                    </div>
+                </div>
+
+                <div class="filter-row">
+
+                    <select>
+                        <option>All Years</option>
+                        <option>2025</option>
+                        <option>2024</option>
+                        <option>2023</option>
+                        <option>2022</option>
+                    </select>
+
+                    <select>
+                        <option>All Subjects</option>
+                        <option>Chhattisgarh GK</option>
+                        <option>Polity</option>
+                        <option>History</option>
+                        <option>Geography</option>
+                        <option>Economy</option>
+                    </select>
+
+                    <button class="primary-btn">Practice PYQs</button>
+
+                </div>
+
+                <div class="cards-grid">
+
+                    <div class="feature-card">
+                        <span class="card-badge">2025</span>
+                        <h3>CGPSC Prelims 2025</h3>
+                        <p>Full previous year question paper.</p>
+                        <strong>100 Questions</strong>
+                        <button>Start Practice →</button>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="card-badge">2024</span>
+                        <h3>CGPSC Prelims 2024</h3>
+                        <p>Complete paper with explanations.</p>
+                        <strong>100 Questions</strong>
+                        <button>Start Practice →</button>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="card-badge">2023</span>
+                        <h3>CGPSC Prelims 2023</h3>
+                        <p>Practice actual exam-level questions.</p>
+                        <strong>100 Questions</strong>
+                        <button>Start Practice →</button>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- MOCK -->
+            <section class="page-section" id="mock">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">EXAM SIMULATOR</span>
+                        <h2>Mock Tests</h2>
+                        <p>Attempt full-length tests in exam-like conditions.</p>
+                    </div>
+
+                    <button class="primary-btn">+ Create Practice</button>
+                </div>
+
+                <div class="mock-table panel">
+
+                    <div class="table-header">
+                        <span>TEST</span>
+                        <span>QUESTIONS</span>
+                        <span>TIME</span>
+                        <span>STATUS</span>
+                        <span>ACTION</span>
+                    </div>
+
+                    <div class="table-row">
+                        <strong>Full Mock Test #09</strong>
+                        <span>100</span>
+                        <span>2 Hours</span>
+                        <span class="status pending">Not Attempted</span>
+                        <button class="small-btn">Start</button>
+                    </div>
+
+                    <div class="table-row">
+                        <strong>Full Mock Test #08</strong>
+                        <span>100</span>
+                        <span>2 Hours</span>
+                        <span class="status completed">86/100</span>
+                        <button class="small-btn outline">Analysis</button>
+                    </div>
+
+                    <div class="table-row">
+                        <strong>CG GK Special #04</strong>
+                        <span>50</span>
+                        <span>60 Min</span>
+                        <span class="status completed">41/50</span>
+                        <button class="small-btn outline">Analysis</button>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- SUBJECTS -->
+            <section class="page-section" id="subjects">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">SYLLABUS</span>
+                        <h2>Subjects</h2>
+                        <p>Track your preparation topic by topic.</p>
+                    </div>
+                </div>
+
+                <div class="subject-cards">
+
+                    <div class="subject-card">
+                        <div class="subject-card-icon">🏛️</div>
+                        <h3>Indian Polity</h3>
+                        <p>Constitution, Parliament, Judiciary & Governance</p>
+                        <div class="subject-progress">
+                            <span>78%</span>
+                            <div class="progress"><div class="progress-bar" style="width:78%"></div></div>
+                        </div>
+                        <button>Continue →</button>
+                    </div>
+
+                    <div class="subject-card">
+                        <div class="subject-card-icon">🏹</div>
+                        <h3>Chhattisgarh GK</h3>
+                        <p>History, Culture, Geography, Economy & Current Affairs</p>
+                        <div class="subject-progress">
+                            <span>84%</span>
+                            <div class="progress"><div class="progress-bar good" style="width:84%"></div></div>
+                        </div>
+                        <button>Continue →</button>
+                    </div>
+
+                    <div class="subject-card">
+                        <div class="subject-card-icon">📜</div>
+                        <h3>History</h3>
+                        <p>Ancient, Medieval, Modern India & National Movement</p>
+                        <div class="subject-progress">
+                            <span>74%</span>
+                            <div class="progress"><div class="progress-bar" style="width:74%"></div></div>
+                        </div>
+                        <button>Continue →</button>
+                    </div>
+
+                    <div class="subject-card">
+                        <div class="subject-card-icon">🌏</div>
+                        <h3>Geography</h3>
+                        <p>Indian Geography, World Geography & Resources</p>
+                        <div class="subject-progress">
+                            <span>68%</span>
+                            <div class="progress"><div class="progress-bar" style="width:68%"></div></div>
+                        </div>
+                        <button>Continue →</button>
+                    </div>
+
+                    <div class="subject-card">
+                        <div class="subject-card-icon">💹</div>
+                        <h3>Economy</h3>
+                        <p>Indian Economy, Budget, Banking & Development</p>
+                        <div class="subject-progress">
+                            <span>55%</span>
+                            <div class="progress"><div class="progress-bar warning" style="width:55%"></div></div>
+                        </div>
+                        <button>Continue →</button>
+                    </div>
+
+                    <div class="subject-card">
+                        <div class="subject-card-icon">🔬</div>
+                        <h3>Science & Environment</h3>
+                        <p>General Science, Ecology, Biodiversity & Technology</p>
+                        <div class="subject-progress">
+                            <span>63%</span>
+                            <div class="progress"><div class="progress-bar" style="width:63%"></div></div>
+                        </div>
+                        <button>Continue →</button>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- REVISION -->
+            <section class="page-section" id="revision">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">SMART REVISION</span>
+                        <h2>Revision Planner</h2>
+                        <p>Revise topics before you forget them.</p>
+                    </div>
+                </div>
+
+                <div class="revision-grid">
+
+                    <div class="revision-card urgent">
+                        <span>REVISE TODAY</span>
+                       
