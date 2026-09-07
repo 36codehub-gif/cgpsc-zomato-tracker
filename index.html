@@ -1,394 +1,288 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>CGPSC + Zomato Tracker</title>
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Tracker | Zomato & CGPSC Prep</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-chart-line logo-icon"></i>
+                <h2>DualTracker</h2>
+            </div>
+            <nav class="nav-menu">
+                <button class="nav-btn active" data-tab="dashboard">
+                    <i class="fa-solid fa-house"></i> Dashboard
+                </button>
+                <button class="nav-btn" data-tab="zomato">
+                    <i class="fa-solid fa-motorcycle"></i> Zomato Earnings
+                </button>
+                <button class="nav-btn" data-tab="cgpsc">
+                    <i class="fa-solid fa-book-open"></i> CGPSC Prep
+                </button>
+                <button class="nav-btn" data-tab="analytics">
+                    <i class="fa-solid fa-chart-pie"></i> Analytics
+                </button>
+            </nav>
+            <div class="user-profile">
+                <i class="fa-solid fa-user-circle avatar"></i>
+                <div class="user-info">
+                    <h4>Aspirant Rider</h4>
+                    <span>Zomato + CGPSC</span>
+                </div>
+            </div>
+        </aside>
 
-  <!-- Header -->
-  <header class="app-header">
-    <div>
-      <h1>📊 Daily Tracker</h1>
-      <p>CGPSC + Zomato</p>
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header Bar -->
+            <header class="top-header">
+                <div class="date-display">
+                    <i class="fa-regular fa-calendar-days"></i>
+                    <span id="current-date">Today Tracker</span>
+                </div>
+                <div class="quick-stats">
+                    <div class="badge earnings-badge">
+                        <i class="fa-solid fa-indian-rupee-sign"></i> Today: <strong id="today-earnings-summary">₹0</strong>
+                    </div>
+                    <div class="badge study-badge">
+                        <i class="fa-solid fa-clock"></i> Study: <strong id="today-study-summary">0 hrs</strong>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Tab -->
+            <section id="dashboard" class="tab-content active">
+                <div class="welcome-banner">
+                    <h1>Daily Balance Dashboard</h1>
+                    <p>Track your hustle & study goals in one unified space.</p>
+                </div>
+
+                <div class="kpi-grid">
+                    <div class="kpi-card text-emerald">
+                        <div class="kpi-header">
+                            <span>Total Earnings</span>
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                        <h2 id="total-month-earnings">₹0</h2>
+                        <small>Net Profit after Fuel</small>
+                    </div>
+
+                    <div class="kpi-card text-indigo">
+                        <div class="kpi-header">
+                            <span>Total Study Hours</span>
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <h2 id="total-month-study">0 hrs</h2>
+                        <small>Cumulative Prep Time</small>
+                    </div>
+
+                    <div class="kpi-card text-amber">
+                        <div class="kpi-header">
+                            <span>Total Orders</span>
+                            <i class="fa-solid fa-box"></i>
+                        </div>
+                        <h2 id="total-month-orders">0</h2>
+                        <small>Orders Delivered</small>
+                    </div>
+
+                    <div class="kpi-card text-rose">
+                        <div class="kpi-header">
+                            <span>CGPSC Logs</span>
+                            <i class="fa-solid fa-list-check"></i>
+                        </div>
+                        <h2 id="total-topics-completed">0</h2>
+                        <small>Completed Sessions</small>
+                    </div>
+                </div>
+
+                <div class="dashboard-charts">
+                    <div class="chart-container">
+                        <h3>Weekly Performance (Earnings vs Study)</h3>
+                        <canvas id="dualTrendChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Zomato Tab -->
+            <section id="zomato" class="tab-content">
+                <div class="section-title">
+                    <h2>Zomato Daily Earnings Log</h2>
+                    <p>Log your daily shifts, payout, fuel cost, and tips.</p>
+                </div>
+
+                <div class="two-column-layout">
+                    <form id="zomato-form" class="card-form">
+                        <h3><i class="fa-solid fa-plus-circle"></i> Log Shift Entry</h3>
+                        
+                        <div class="form-group">
+                            <label for="z-date">Date</label>
+                            <input type="date" id="z-date" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="z-trips">Orders</label>
+                                <input type="number" id="z-trips" placeholder="e.g. 15" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="z-hours">Shift Hours</label>
+                                <input type="number" id="z-hours" step="0.5" placeholder="e.g. 5.5" min="0" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="z-payout">Base Pay (₹)</label>
+                                <input type="number" id="z-payout" placeholder="e.g. 650" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="z-tips">Tips (₹)</label>
+                                <input type="number" id="z-tips" placeholder="e.g. 50" min="0" value="0">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="z-fuel">Fuel Expense (₹)</label>
+                            <input type="number" id="z-fuel" placeholder="e.g. 150" min="0" value="0">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-zomato">
+                            <i class="fa-solid fa-floppy-disk"></i> Save Shift Log
+                        </button>
+                    </form>
+
+                    <div class="table-container card-table">
+                        <h3>Shift Records</h3>
+                        <table id="zomato-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Orders</th>
+                                    <th>Hours</th>
+                                    <th>Gross (₹)</th>
+                                    <th>Fuel (₹)</th>
+                                    <th>Net (₹)</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CGPSC Prep Tab -->
+            <section id="cgpsc" class="tab-content">
+                <div class="section-title">
+                    <h2>CGPSC Preparation Tracker</h2>
+                    <p>Track study sessions, CG subjects, revision, and MCQs.</p>
+                </div>
+
+                <div class="two-column-layout">
+                    <form id="cgpsc-form" class="card-form">
+                        <h3><i class="fa-solid fa-plus-circle"></i> Log Study Session</h3>
+                        
+                        <div class="form-group">
+                            <label for="c-date">Date</label>
+                            <input type="date" id="c-date" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="c-subject">Subject</label>
+                            <select id="c-subject" required>
+                                <option value="" disabled selected>Select Subject</option>
+                                <option value="CG GK">CG General Knowledge</option>
+                                <option value="Indian Polity & History">Indian Polity & History</option>
+                                <option value="Geography & Economy">Geography & Economy</option>
+                                <option value="General Science">General Science & Tech</option>
+                                <option value="CSAT / Aptitude">CSAT / Aptitude</option>
+                                <option value="Languages">Language Paper</option>
+                                <option value="Current Affairs">Current Affairs</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="c-topic">Topic Covered</label>
+                            <input type="text" id="c-topic" placeholder="e.g. Kalchuri Dynasty / Panchayat Raj" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="c-hours">Study Hours</label>
+                                <input type="number" id="c-hours" step="0.5" placeholder="e.g. 4" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="c-questions">MCQs Solved</label>
+                                <input type="number" id="c-questions" placeholder="e.g. 50" min="0" value="0">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="c-status">Status</label>
+                            <select id="c-status" required>
+                                <option value="First Read">First Reading</option>
+                                <option value="Revised">Revised (R1/R2)</option>
+                                <option value="Notes Done">Notes Created</option>
+                                <option value="Mock Test">Mock Test Given</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-cgpsc">
+                            <i class="fa-solid fa-book-bookmark"></i> Save Study Log
+                        </button>
+                    </form>
+
+                    <div class="table-container card-table">
+                        <h3>Study Logs</h3>
+                        <table id="cgpsc-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Subject</th>
+                                    <th>Topic</th>
+                                    <th>Hours</th>
+                                    <th>MCQs</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics Tab -->
+            <section id="analytics" class="tab-content">
+                <div class="section-title">
+                    <h2>Performance Analytics</h2>
+                    <p>Analyze productivity vs earnings ratio over time.</p>
+                </div>
+
+                <div class="analytics-grid">
+                    <div class="chart-card">
+                        <h3>Zomato Income Breakdown</h3>
+                        <canvas id="incomeChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Subject Time Distribution</h3>
+                        <canvas id="subjectChart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
 
-    <button id="resetBtn" class="reset-btn">
-      Reset
-    </button>
-  </header>
-
-
-  <main>
-
-    <!-- Today's Date -->
-    <section class="date-section">
-      <p id="todayDate">Loading date...</p>
-    </section>
-
-
-    <!-- Target Cards -->
-    <section class="target-grid">
-
-      <!-- CGPSC -->
-      <div class="target-card study-card">
-
-        <div class="card-icon">📚</div>
-
-        <h2>CGPSC Study</h2>
-
-        <p class="target-text">
-          Target: <strong>3 Hours</strong>
-        </p>
-
-        <label for="studyHours">
-          Today's Study Hours
-        </label>
-
-        <input
-          type="number"
-          id="studyHours"
-          min="0"
-          max="24"
-          step="0.5"
-          placeholder="0"
-        >
-
-        <div class="progress-container">
-          <div
-            id="studyProgress"
-            class="progress-bar">
-          </div>
-        </div>
-
-        <p id="studyStatus" class="status">
-          Pending
-        </p>
-
-      </div>
-
-
-      <!-- Zomato -->
-      <div class="target-card work-card">
-
-        <div class="card-icon">🛵</div>
-
-        <h2>Zomato Work</h2>
-
-        <p class="target-text">
-          Target: <strong>12 Hours</strong>
-        </p>
-
-        <label for="workHours">
-          Today's Work Hours
-        </label>
-
-        <input
-          type="number"
-          id="workHours"
-          min="0"
-          max="24"
-          step="0.5"
-          placeholder="0"
-        >
-
-        <div class="progress-container">
-          <div
-            id="workProgress"
-            class="progress-bar">
-          </div>
-        </div>
-
-        <p id="workStatus" class="status">
-          Pending
-        </p>
-
-      </div>
-
-    </section>
-
-
-    <!-- Summary -->
-    <section class="summary-section">
-
-      <h2>📈 Today's Summary</h2>
-
-      <div class="summary-grid">
-
-        <div class="summary-card">
-          <span>Study</span>
-          <strong id="summaryStudy">0h</strong>
-        </div>
-
-        <div class="summary-card">
-          <span>Work</span>
-          <strong id="summaryWork">0h</strong>
-        </div>
-
-        <div class="summary-card">
-          <span>Total</span>
-          <strong id="summaryTotal">0h</strong>
-        </div>
-
-        <div class="summary-card">
-          <span>Status</span>
-          <strong id="dayStatus">Pending</strong>
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- Streak -->
-    <section class="streak-section">
-
-      <div class="streak-card">
-
-        <span class="big-icon">🔥</span>
-
-        <div>
-          <p>Current Streak</p>
-
-          <h2>
-            <span id="streakCount">0</span>
-            Days
-          </h2>
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- Attendance -->
-    <section class="attendance-section">
-
-      <h2>📊 Overall Attendance</h2>
-
-      <div class="attendance-card">
-
-        <div class="attendance-item">
-          <span>Study Attendance</span>
-          <strong id="studyAttendance">0%</strong>
-        </div>
-
-        <div class="attendance-item">
-          <span>Work Attendance</span>
-          <strong id="workAttendance">0%</strong>
-        </div>
-
-        <div class="attendance-item">
-          <span>Overall</span>
-          <strong id="overallAttendance">0%</strong>
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- Calendar -->
-    <section class="calendar-section">
-
-      <div class="section-header">
-
-        <button id="prevMonth" class="month-btn">
-          ◀
-        </button>
-
-        <h2 id="calendarMonth">
-          Month
-        </h2>
-
-        <button id="nextMonth" class="month-btn">
-          ▶
-        </button>
-
-      </div>
-
-
-      <div class="calendar-weekdays">
-
-        <div>Sun</div>
-        <div>Mon</div>
-        <div>Tue</div>
-        <div>Wed</div>
-        <div>Thu</div>
-        <div>Fri</div>
-        <div>Sat</div>
-
-      </div>
-
-
-      <div
-        id="calendarDays"
-        class="calendar-days">
-      </div>
-
-
-      <div class="calendar-legend">
-
-        <span>
-          <i class="legend study"></i>
-          Study
-        </span>
-
-        <span>
-          <i class="legend work"></i>
-          Work
-        </span>
-
-        <span>
-          <i class="legend both"></i>
-          Both
-        </span>
-
-        <span>
-          <i class="legend none"></i>
-          No Data
-        </span>
-
-      </div>
-
-    </section>
-
-
-    <!-- History -->
-    <section class="history-section">
-
-      <div class="section-header">
-        <h2>📋 Attendance History</h2>
-      </div>
-
-      <div class="table-wrapper">
-
-        <table>
-
-          <thead>
-
-            <tr>
-              <th>Date</th>
-              <th>Study</th>
-              <th>Work</th>
-              <th>Status</th>
-            </tr>
-
-          </thead>
-
-          <tbody id="historyTable">
-          </tbody>
-
-        </table>
-
-      </div>
-
-      <p
-        id="noHistory"
-        class="no-history">
-        No attendance history yet.
-      </p>
-
-    </section>
-
-
-    <!-- Notes -->
-    <section class="notes-section">
-
-      <h2>📝 Daily Notes</h2>
-
-      <textarea
-        id="dailyNotes"
-        rows="5"
-        placeholder="Write today's study/work notes here..."
-      ></textarea>
-
-      <button
-        id="saveNotesBtn"
-        class="save-btn">
-        Save Notes
-      </button>
-
-      <p
-        id="notesMessage"
-        class="notes-message">
-      </p>
-
-    </section>
-
-
-    <!-- Save -->
-    <section class="save-section">
-
-      <button
-        id="saveTodayBtn"
-        class="main-save-btn">
-        💾 Save Today's Progress
-      </button>
-
-      <p
-        id="saveMessage"
-        class="save-message">
-      </p>
-
-    </section>
-
-  </main>
-
-
-  <!-- Bottom Navigation -->
-  <nav class="bottom-nav">
-
-    <button
-      class="nav-item active"
-      data-section="top">
-
-      <span>🏠</span>
-      <small>Home</small>
-
-    </button>
-
-
-    <button
-      class="nav-item"
-      data-section="calendar">
-
-      <span>📅</span>
-      <small>Calendar</small>
-
-    </button>
-
-
-    <button
-      class="nav-item"
-      data-section="history">
-
-      <span>📋</span>
-      <small>History</small>
-
-    </button>
-
-
-    <button
-      class="nav-item"
-      data-section="notes">
-
-      <span>📝</span>
-      <small>Notes</small>
-
-    </button>
-
-  </nav>
-
-
-  <!-- JavaScript -->
-  <script src="script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
