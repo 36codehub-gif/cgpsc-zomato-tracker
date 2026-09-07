@@ -1,18 +1,14 @@
-/* CSS Variables for Premium Dark Theme */
 :root {
     --bg-primary: #0f172a;
     --bg-secondary: #1e293b;
-    --bg-card: #334155;
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
-    
     --accent-zomato: #e23744;
     --accent-zomato-hover: #cb202d;
     --accent-cgpsc: #6366f1;
     --accent-cgpsc-hover: #4f46e5;
     --accent-emerald: #10b981;
     --accent-amber: #f59e0b;
-    
     --border-color: #475569;
     --radius: 12px;
     --transition: all 0.3s ease;
@@ -22,7 +18,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
 }
 
 body {
@@ -64,7 +60,6 @@ body {
 .brand h2 {
     font-size: 20px;
     font-weight: 700;
-    letter-spacing: 0.5px;
 }
 
 .nav-menu {
@@ -124,7 +119,7 @@ body {
     color: var(--text-muted);
 }
 
-/* Main Content Styling */
+/* Main Content Area */
 .main-content {
     margin-left: 260px;
     flex: 1;
@@ -132,7 +127,6 @@ body {
     max-width: calc(100% - 260px);
 }
 
-/* Header */
 .top-header {
     display: flex;
     justify-content: space-between;
@@ -171,7 +165,7 @@ body {
     color: #818cf8;
 }
 
-/* Tab Sections */
+/* Tabs */
 .tab-content {
     display: none;
 }
@@ -200,7 +194,7 @@ body {
     font-size: 15px;
 }
 
-/* KPI Cards Grid */
+/* KPI Cards */
 .kpi-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -239,20 +233,20 @@ body {
 .text-amber h2 { color: var(--accent-amber); }
 .text-rose h2 { color: var(--accent-zomato); }
 
-/* Dashboard Charts */
-.dashboard-charts {
+/* Charts Layout */
+.dashboard-charts, .chart-card {
     background-color: var(--bg-secondary);
     padding: 20px;
     border-radius: var(--radius);
     border: 1px solid var(--border-color);
 }
 
-.chart-container {
+.chart-container, .chart-card {
     height: 320px;
     position: relative;
 }
 
-.chart-container h3 {
+.chart-container h3, .chart-card h3 {
     margin-bottom: 16px;
     font-size: 16px;
 }
@@ -393,33 +387,16 @@ tbody tr:hover {
     font-size: 16px;
 }
 
-/* Analytics Tab */
+/* Analytics Tab Layout */
 .analytics-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 24px;
 }
 
-.chart-card {
-    background-color: var(--bg-secondary);
-    padding: 20px;
-    border-radius: var(--radius);
-    border: 1px solid var(--border-color);
-    height: 360px;
-}
-
-.chart-card h3 {
-    margin-bottom: 16px;
-    font-size: 16px;
-}
-
-/* Responsive Layout */
+/* Responsive Rules */
 @media (max-width: 992px) {
-    .two-column-layout {
-        grid-template-columns: 1fr;
-    }
-    
-    .analytics-grid {
+    .two-column-layout, .analytics-grid {
         grid-template-columns: 1fr;
     }
 }
