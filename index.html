@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPSC Prep Pro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">
+            <div class="logo-icon">C</div>
+            <div>
+                <h2>CGPSC</h2>
+                <span>Prep Pro</span>
+            </div>
+        </div>
+
+        <nav>
+            <button class="nav-item active" data-page="dashboard">
+                🏠 <span>Dashboard</span>
+            </button>
+
+            <button class="nav-item" data-page="study">
+                📚 <span>Study Plan</span>
+            </button>
+
+            <button class="nav-item" data-page="mock">
+                📝 <span>Mock Tests</span>
+            </button>
+
+            <button class="nav-item" data-page="gk">
+                🏛️ <span>CG GK</span>
+            </button>
+
+            <button class="nav-item" data-page="current">
+                📰 <span>Current Affairs</span>
+            </button>
+
+            <button class="nav-item" data-page="notes">
+                📒 <span>My Notes</span>
+            </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <button id="themeBtn" class="side-action">
+                🌙 Dark Mode
+            </button>
+
+            <button id="resetBtn" class="side-action">
+                🔄 Reset Data
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+
+        <header class="topbar">
+            <button id="menuBtn" class="menu-btn">☰</button>
+
+            <div class="search">
+                🔍
+                <input type="text" id="searchInput" placeholder="Search topics...">
+            </div>
+
+            <div class="profile">
+                <div class="avatar">A</div>
+                <div>
+                    <strong>Aspirant</strong>
+                    <small>CGPSC 2026</small>
+                </div>
+            </div>
+        </header>
+
+        <!-- DASHBOARD -->
+        <section class="page active-page" id="dashboard">
+
+            <div class="welcome">
+                <div>
+                    <span class="badge">CGPSC PREPARATION</span>
+                    <h1>Welcome back, Aspirant 👋</h1>
+                    <p>Consistency today = Selection tomorrow.</p>
+                </div>
+
+                <div class="streak">
+                    <strong id="streak">7</strong>
+                    <span>🔥 Day Streak</span>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats">
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">📚</div>
+                    <div>
+                        <span>Syllabus Progress</span>
+                        <strong id="syllabusProgress">72%</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">✓</div>
+                    <div>
+                        <span>Questions Solved</span>
+                        <strong id="questionsSolved">1240</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">🎯</div>
+                    <div>
+                        <span>Average Score</span>
+                        <strong id="avgScore">68%</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">⏱</div>
+                    <div>
+                        <span>Study Hours</span>
+                        <strong id="studyHours">4.5h</strong>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="grid-2">
+
+                <!-- Today's plan -->
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h2>Today's Study Plan</h2>
+                            <p>Complete your daily targets</p>
+                        </div>
+                        <span class="date">Today</span>
+                    </div>
+
+                    <div id="taskList" class="task-list"></div>
+
+                    <button class="primary-btn full" id="addTaskBtn">
+                        + Add Study Task
+                    </button>
+                </div>
+
+                <!-- Quick Practice -->
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h2>Quick Practice</h2>
+                            <p>Start a quick quiz</p>
+                        </div>
+                    </div>
+
+                    <div class="practice-grid">
+
+                        <button class="practice-card" data-quiz="cg">
+                            <span>🏛️</span>
+                            <strong>CG GK</strong>
+                            <small>10 Questions</small>
+                        </button>
+
+                        <button class="practice-card" data-quiz="polity">
+                            <span>⚖️</span>
+                            <strong>Polity</strong>
+                            <small>10 Questions</small>
+                        </button>
+
+                        <button class="practice-card" data-quiz="history">
+                            <span>📜</span>
+                            <strong>History</strong>
+                            <small>10 Questions</small>
+                        </button>
+
+                        <button class="practice-card" data-quiz="geography">
+                            <span>🌍</span>
+                            <strong>Geography</strong>
+                            <small>10 Questions</small>
+                        </button>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Progress -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2>Subject Progress</h2>
+                        <p>Your preparation status</p>
+                    </div>
+                </div>
+
+                <div class="subjects">
+
+                    <div class="subject">
+                        <div>
+                            <span>Chhattisgarh GK</span>
+                            <strong>82%</strong>
+                        </div>
+                        <div class="progress">
+                            <div style="width:82%"></div>
+                        </div>
+                    </div>
+
+                    <div class="subject">
+                        <div>
+                            <span>Indian Polity</span>
+                            <strong>74%</strong>
+                        </div>
+                        <div class="progress">
+                            <div style="width:74%"></div>
+                        </div>
+                    </div>
+
+                    <div class="subject">
+                        <div>
+                            <span>History</span>
+                            <strong>68%</strong>
+                        </div>
+                        <div class="progress">
+                            <div style="width:68%"></div>
+                        </div>
+                    </div>
+
+                    <div class="subject">
+                        <div>
+                            <span>Geography</span>
+                            <strong>61%</strong>
+                        </div>
+                        <div class="progress">
+                            <div style="width:61%"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+        <!-- STUDY PLAN -->
+        <section class="page" id="study">
+
+            <div class="page-title">
+                <h1>Study Plan</h1>
+                <p>Plan your preparation systematically.</p>
+            </div>
+
+            <div class="study-grid">
+
+                <div class="card big">
+                    <h2>Daily Target</h2>
+
+                    <div class="target">
+                        <span>📖 Reading</span>
+                        <strong>2 Hours</strong>
+                    </div>
+
+                    <div class="target">
+                        <span>📝 MCQs</span>
+                        <strong>50 Questions</strong>
+                    </div>
+
+                    <div class="target">
+                        <span>📰 Current Affairs</span>
+                        <strong>30 Minutes</strong>
+                    </div>
+
+                    <div class="target">
+                        <span>🔁 Revision</span>
+                        <strong>1 Hour</strong>
+                    </div>
+                </div>
+
+                <div class="card big timer-card">
+                    <h2>Study Timer</h2>
+
+                    <div id="timer">25:00</div>
+
+                    <div class="timer-buttons">
+                        <button class="primary-btn" id="startTimer">Start</button>
+                        <button class="secondary-btn" id="pauseTimer">Pause</button>
+                        <button class="secondary-btn" id="resetTimer">Reset</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- MOCK TEST -->
+        <section class="page" id="mock">
+
+            <div class="page-title">
+                <h1>Mock Tests</h1>
+                <p>Practice like the real examination.</p>
+            </div>
+
+            <div class="mock-grid">
+
+                <div class="mock-card">
+                    <span class="mock-number">01</span>
+                    <h2>CGPSC General Studies</h2>
+                    <p>50 Questions • 60 Minutes</p>
+                    <button class="primary-btn start-quiz" data-quiz="cg">
+                        Start Test
+                    </button>
+                </div>
+
+                <div class="mock-card">
+                    <span class="mock-number">02</span>
+                    <h2>Indian Polity</h2>
+                    <p>50 Questions • 60 Minutes</p>
+                    <button class="primary-btn start-quiz" data-quiz="polity">
+                        Start Test
+                    </button>
+                </div>
+
+                <div class="mock-card">
+                    <span class="mock-number">03</span>
+                    <h2>History</h2>
+                    <p>50 Questions • 60 Minutes</p>
+                    <button class="primary-btn start-quiz" data-quiz="history">
+                        Start Test
+                    </button>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- CG GK -->
+        <section class="page" id="gk">
+
+            <div class="page-title">
+                <h1>Chhattisgarh GK</h1>
+                <p>Important topics for CGPSC preparation.</p>
+            </div>
+
+            <div class="topic-grid">
+
+                <div class="topic-card">
+                    <span>🏛️</span>
+                    <h3>History of Chhattisgarh</h3>
+                    <p>Ancient, medieval and modern history.</p>
+                </div>
+
+                <div class="topic-card">
+                    <span>🗺️</span>
+                    <h3>Geography</h3>
+                    <p>Rivers, forests, minerals and climate.</p>
+                </div>
+
+                <div class="topic-card">
+                    <span>🎭</span>
+                    <h3>Culture</h3>
+                    <p>Folk dance, festivals, tribes and traditions.</p>
+                </div>
+
+                <div class="topic-card">
+                    <span>💰</span>
+                    <h3>Economy</h3>
+                    <p>Agriculture, industries and resources.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- CURRENT AFFAIRS -->
+        <section class="page" id="current">
+
+            <div class="page-title">
+                <h1>Current Affairs</h1>
+                <p>Keep your preparation updated.</p>
+            </div>
+
+            <div class="news-list">
+
+                <article class="news-card">
+                    <span>📌</span>
+                    <div>
+                        <h3>Chhattisgarh Current Affairs</h3>
+                        <p>State government schemes, appointments, awards and important events.</p>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <span>🇮🇳</span>
+                    <div>
+                        <h3>National Current Affairs</h3>
+                        <p>Important national developments and government initiatives.</p>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <span>🌎</span>
+                    <div>
+                        <h3>International Affairs</h3>
+                        <p>Important international events and organizations.</p>
+                    </div>
+                </article>
+
+            </div>
+
+        </section>
+
+        <!-- NOTES -->
+        <section class="page" id="notes">
+
+            <div class="page-title">
+                <h1>My Notes</h1>
+                <p>Create and save your personal revision notes.</p>
+            </div>
+
+            <div class="card">
+
+                <textarea id="notesArea"
+                    placeholder="Write your important CGPSC notes here..."></textarea>
+
+                <button class="primary-btn" id="saveNotes">
+                    💾 Save Notes
+                </button>
+
+                <span id="noteStatus"></span>
+
+            </div>
+
+        </section>
+
+    </main>
+</div>
+
+
+<!-- QUIZ MODAL -->
+
+<div class="modal" id="quizModal">
+
+    <div class="quiz-box">
+
+        <button class="close" id="closeQuiz">×</button>
+
+        <div class="quiz-top">
+            <span id="quizSubject">CG GK</span>
+            <span id="questionNumber">Question 1/5</span>
+        </div>
+
+        <h2 id="questionText">Question</h2>
+
+        <div id="options"></div>
+
+        <div class="quiz-footer">
+            <span id="quizScore">Score: 0</span>
+
+            <button class="primary-btn" id="nextQuestion">
+                Next →
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
