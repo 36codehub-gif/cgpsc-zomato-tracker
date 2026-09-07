@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,68 +17,71 @@
         </div>
         <nav class="nav-menu">
             <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a>
-            <a href="about.html" class="nav-link"><i class="fa-solid fa-user"></i> About Me</a>
-            <a href="projects.html" class="nav-link"><i class="fa-solid fa-code"></i> Projects</a>
-            <a href="contact.html" class="nav-link active"><i class="fa-solid fa-envelope"></i> Contact</a>
+            <a href="about.html" class="nav-link"><i class="fa-solid fa-user"></i> About</a>
+            <a href="projects.html" class="nav-link"><i class="fa-solid fa-laptop-code"></i> Projects</a>
+            <a href="contact.html" class="nav-link active"><i class="fa-solid fa-paper-plane"></i> Contact</a>
         </nav>
-        <div class="social-links">
-            <a href="https://github.com" target="_blank"><i class="fa-brands fa-github"></i></a>
-            <a href="https://linkedin.com" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="mailto:nilkanthpatel.office@gmail.com"><i class="fa-solid fa-envelope"></i></a>
-        </div>
     </aside>
 
-    <main class="main-content">
-        <section class="page-header">
-            <h1>Get In <span class="highlight">Touch</span></h1>
-            <p>Let's collaborate on software engineering projects or open opportunities.</p>
-        </section>
-
-        <div class="contact-layout">
-            <div class="contact-info">
-                <div class="info-card">
-                    <i class="fa-solid fa-phone"></i>
-                    <div>
-                        <h4>Phone Number</h4>
-                        <p>+91 91111717276</p>
-                    </div>
-                </div>
-
-                <div class="info-card">
-                    <i class="fa-solid fa-envelope"></i>
-                    <div>
-                        <h4>Email Address</h4>
-                        <p>nilkanthpatel.office@gmail.com</p>
-                    </div>
-                </div>
-
-                <div class="info-card">
-                    <i class="fa-solid fa-graduation-cap"></i>
-                    <div>
-                        <h4>Qualification</h4>
-                        <p>BCA Computer Science</p>
-                    </div>
-                </div>
-            </div>
-
-            <form id="contact-form" class="contact-form">
-                <h3>Send a Message</h3>
-                <div class="form-group">
-                    <input type="text" id="name" placeholder="Your Name" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" id="email" placeholder="Your Email" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="subject" placeholder="Subject" required>
-                </div>
-                <div class="form-group">
-                    <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Send Message</button>
-            </form>
+    <header class="mobile-header">
+        <div class="brand-mobile">
+            <img src="file_00000000afb882078d9ea8c5518d6cb4.png" alt="Nilkanth Patel" class="avatar-sm">
+            <span>Nilkanth Patel</span>
         </div>
+        <a href="contact.html" class="icon-btn"><i class="fa-solid fa-envelope"></i></a>
+    </header>
+
+    <main class="main-content">
+        <div class="page-title">
+            <h1>Get In <span class="gradient-text">Touch</span></h1>
+            <p>Reach out directly or send a message</p>
+        </div>
+
+        <div class="contact-grid">
+            <a href="tel:91111717276" class="contact-chip glass">
+                <i class="fa-solid fa-phone icon-accent"></i>
+                <div>
+                    <span>Call Me</span>
+                    <strong>+91 91111717276</strong>
+                </div>
+            </a>
+
+            <a href="mailto:nilkanthpatel.office@gmail.com" class="contact-chip glass">
+                <i class="fa-solid fa-envelope icon-accent"></i>
+                <div>
+                    <span>Email Me</span>
+                    <strong>nilkanthpatel.office@gmail.com</strong>
+                </div>
+            </a>
+        </div>
+
+        <form id="contact-form" class="glass form-block">
+            <h3>Quick Message</h3>
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea rows="4" placeholder="Your Message..." required></textarea>
+            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+        </form>
     </main>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="bottom-nav-link">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+        <a href="about.html" class="bottom-nav-link">
+            <i class="fa-solid fa-user"></i>
+            <span>About</span>
+        </a>
+        <a href="projects.html" class="bottom-nav-link">
+            <i class="fa-solid fa-laptop-code"></i>
+            <span>Projects</span>
+        </a>
+        <a href="contact.html" class="bottom-nav-link active">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Contact</span>
+        </a>
+    </nav>
 
     <script src="script.js"></script>
 </body>
