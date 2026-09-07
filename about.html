@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,60 +17,61 @@
         </div>
         <nav class="nav-menu">
             <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a>
-            <a href="about.html" class="nav-link active"><i class="fa-solid fa-user"></i> About Me</a>
-            <a href="projects.html" class="nav-link"><i class="fa-solid fa-code"></i> Projects</a>
-            <a href="contact.html" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact</a>
+            <a href="about.html" class="nav-link active"><i class="fa-solid fa-user"></i> About</a>
+            <a href="projects.html" class="nav-link"><i class="fa-solid fa-laptop-code"></i> Projects</a>
+            <a href="contact.html" class="nav-link"><i class="fa-solid fa-paper-plane"></i> Contact</a>
         </nav>
-        <div class="social-links">
-            <a href="https://github.com" target="_blank"><i class="fa-brands fa-github"></i></a>
-            <a href="https://linkedin.com" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="mailto:nilkanthpatel.office@gmail.com"><i class="fa-solid fa-envelope"></i></a>
-        </div>
     </aside>
 
+    <header class="mobile-header">
+        <div class="brand-mobile">
+            <img src="file_00000000afb882078d9ea8c5518d6cb4.png" alt="Nilkanth Patel" class="avatar-sm">
+            <span>Nilkanth Patel</span>
+        </div>
+        <a href="contact.html" class="icon-btn"><i class="fa-solid fa-envelope"></i></a>
+    </header>
+
     <main class="main-content">
-        <section class="page-header">
-            <h1>About <span class="highlight">Me</span></h1>
-            <p>Passionate developer dedicated to creating impact through software technology.</p>
+        <div class="page-title">
+            <h1>About <span class="gradient-text">Me</span></h1>
+            <p>Software Engineer & BCA Computer Science Graduate</p>
+        </div>
+
+        <section class="glass card-block">
+            <h3><i class="fa-solid fa-user-gear icon-accent"></i> Overview</h3>
+            <p>I specialize in building scalable software systems, responsive user interfaces, and modular backend code architectures.</p>
         </section>
 
-        <section class="about-grid">
-            <div class="about-card">
-                <h3><i class="fa-solid fa-user-gear"></i> Personal Bio</h3>
-                <p>I hold a degree in <strong>BCA (Bachelor of Computer Applications)</strong> in Computer Science. As a Software Engineer, I focus on software development principles, modern framework engineering, and full-stack integration.</p>
-            </div>
-
-            <div class="about-card">
-                <h3><i class="fa-solid fa-graduation-cap"></i> Education</h3>
-                <div class="timeline-item">
-                    <h4>BCA in Computer Science</h4>
-                    <p>Focused on Data Structures, Web Engineering, Database Management, and Software Engineering Principles.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="skills-section">
-            <h2>Technical <span class="highlight">Skills</span></h2>
-            <div class="skills-grid">
-                <div class="skill-item">
-                    <div class="skill-info"><span>JavaScript / HTML / CSS</span><span>90%</span></div>
-                    <div class="progress-bar"><div class="progress" style="width: 90%;"></div></div>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-info"><span>React / Frontend Development</span><span>85%</span></div>
-                    <div class="progress-bar"><div class="progress" style="width: 85%;"></div></div>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-info"><span>Node.js / Express</span><span>80%</span></div>
-                    <div class="progress-bar"><div class="progress" style="width: 80%;"></div></div>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-info"><span>Database (SQL / MongoDB)</span><span>80%</span></div>
-                    <div class="progress-bar"><div class="progress" style="width: 80%;"></div></div>
-                </div>
+        <section class="glass card-block">
+            <h3><i class="fa-solid fa-layer-group icon-accent"></i> Tech Stack</h3>
+            <div class="chip-group">
+                <span class="chip"><i class="fa-brands fa-js"></i> JavaScript</span>
+                <span class="chip"><i class="fa-brands fa-react"></i> React</span>
+                <span class="chip"><i class="fa-brands fa-node-js"></i> Node.js</span>
+                <span class="chip"><i class="fa-brands fa-html5"></i> HTML5 & CSS3</span>
+                <span class="chip"><i class="fa-solid fa-database"></i> SQL / MongoDB</span>
             </div>
         </section>
     </main>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="bottom-nav-link">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+        <a href="about.html" class="bottom-nav-link active">
+            <i class="fa-solid fa-user"></i>
+            <span>About</span>
+        </a>
+        <a href="projects.html" class="bottom-nav-link">
+            <i class="fa-solid fa-laptop-code"></i>
+            <span>Projects</span>
+        </a>
+        <a href="contact.html" class="bottom-nav-link">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Contact</span>
+        </a>
+    </nav>
 
     <script src="script.js"></script>
 </body>
