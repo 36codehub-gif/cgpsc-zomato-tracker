@@ -1,0 +1,662 @@
+/* ================================
+   CGPSC + ZOMATO DAILY TRACKER
+   style.css
+================================ */
+
+
+/* ---------- RESET ---------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f6f8;
+  color: #1f2937;
+  line-height: 1.5;
+  padding-bottom: 80px;
+}
+
+
+/* ---------- HEADER ---------- */
+
+.app-header {
+  background: #111827;
+  color: white;
+  padding: 18px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+.app-header h1 {
+  font-size: 21px;
+  margin-bottom: 2px;
+}
+
+.app-header p {
+  font-size: 13px;
+  opacity: 0.75;
+}
+
+.reset-btn {
+  border: none;
+  background: #ef4444;
+  color: white;
+  padding: 9px 13px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.reset-btn:active {
+  transform: scale(0.96);
+}
+
+
+/* ---------- MAIN ---------- */
+
+main {
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  padding: 15px;
+}
+
+
+/* ---------- DATE ---------- */
+
+.date-section {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+#todayDate {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+
+/* ---------- TARGET CARDS ---------- */
+
+.target-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+.target-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+.study-card {
+  border-top: 5px solid #2563eb;
+}
+
+.work-card {
+  border-top: 5px solid #f97316;
+}
+
+.card-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.target-card h2 {
+  font-size: 19px;
+  margin-bottom: 6px;
+}
+
+.target-text {
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.target-card label {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 7px;
+  color: #374151;
+}
+
+.target-card input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 9px;
+  font-size: 17px;
+  outline: none;
+  margin-bottom: 13px;
+}
+
+.target-card input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+
+/* ---------- PROGRESS ---------- */
+
+.progress-container {
+  width: 100%;
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 100%;
+  border-radius: 20px;
+  transition: width 0.4s ease;
+}
+
+.study-card .progress-bar {
+  background: #2563eb;
+}
+
+.work-card .progress-bar {
+  background: #f97316;
+}
+
+.status {
+  font-size: 13px;
+  font-weight: bold;
+  color: #dc2626;
+}
+
+.status.completed {
+  color: #16a34a;
+}
+
+
+/* ---------- SECTIONS ---------- */
+
+.summary-section,
+.attendance-section,
+.calendar-section,
+.history-section,
+.notes-section {
+  background: white;
+  border-radius: 16px;
+  padding: 18px;
+  margin-top: 18px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.07);
+  border: 1px solid #e5e7eb;
+}
+
+.summary-section h2,
+.attendance-section h2,
+.calendar-section h2,
+.history-section h2,
+.notes-section h2 {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+
+/* ---------- SUMMARY ---------- */
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.summary-card {
+  background: #f8fafc;
+  padding: 14px 10px;
+  border-radius: 11px;
+  text-align: center;
+}
+
+.summary-card span {
+  display: block;
+  color: #6b7280;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.summary-card strong {
+  font-size: 18px;
+  color: #111827;
+}
+
+
+/* ---------- STREAK ---------- */
+
+.streak-section {
+  margin-top: 18px;
+}
+
+.streak-card {
+  background: white;
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.07);
+  border: 1px solid #e5e7eb;
+}
+
+.big-icon {
+  font-size: 42px;
+}
+
+.streak-card p {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.streak-card h2 {
+  font-size: 22px;
+}
+
+
+/* ---------- ATTENDANCE ---------- */
+
+.attendance-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.attendance-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8fafc;
+  padding: 13px;
+  border-radius: 10px;
+}
+
+.attendance-item span {
+  color: #4b5563;
+  font-size: 14px;
+}
+
+.attendance-item strong {
+  font-size: 17px;
+}
+
+
+/* ---------- SECTION HEADER ---------- */
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section-header h2 {
+  margin-bottom: 0;
+}
+
+.month-btn {
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 9px;
+  background: #111827;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.month-btn:active {
+  transform: scale(0.94);
+}
+
+
+/* ---------- CALENDAR ---------- */
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-top: 18px;
+  margin-bottom: 5px;
+}
+
+.calendar-weekdays div {
+  text-align: center;
+  font-size: 10px;
+  font-weight: bold;
+  color: #6b7280;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendar-day {
+  min-height: 42px;
+  border-radius: 8px;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.calendar-day.empty {
+  background: transparent;
+  cursor: default;
+}
+
+.calendar-day.today {
+  outline: 2px solid #111827;
+  outline-offset: -2px;
+}
+
+.calendar-day.study-day {
+  background: #bfdbfe;
+  color: #1e40af;
+}
+
+.calendar-day.work-day {
+  background: #fed7aa;
+  color: #9a3412;
+}
+
+.calendar-day.both-day {
+  background: #c7d2fe;
+  color: #3730a3;
+}
+
+
+/* ---------- CALENDAR LEGEND ---------- */
+
+.calendar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 15px;
+  font-size: 11px;
+  color: #4b5563;
+}
+
+.calendar-legend span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legend {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.legend.study {
+  background: #bfdbfe;
+}
+
+.legend.work {
+  background: #fed7aa;
+}
+
+.legend.both {
+  background: #c7d2fe;
+}
+
+.legend.none {
+  background: #f3f4f6;
+}
+
+
+/* ---------- HISTORY TABLE ---------- */
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 500px;
+}
+
+th,
+td {
+  padding: 11px 8px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: center;
+  font-size: 12px;
+}
+
+th {
+  background: #f8fafc;
+  font-weight: bold;
+  color: #374151;
+}
+
+td {
+  color: #4b5563;
+}
+
+.no-history {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 13px;
+  padding: 15px 0 0;
+}
+
+
+/* ---------- NOTES ---------- */
+
+.notes-section textarea {
+  width: 100%;
+  resize: vertical;
+  min-height: 110px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 12px;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.notes-section textarea:focus {
+  border-color: #2563eb;
+}
+
+.save-btn {
+  width: 100%;
+  margin-top: 10px;
+  border: none;
+  border-radius: 9px;
+  padding: 12px;
+  background: #374151;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.notes-message,
+.save-message {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #16a34a;
+}
+
+
+/* ---------- MAIN SAVE BUTTON ---------- */
+
+.save-section {
+  margin-top: 18px;
+  margin-bottom: 20px;
+}
+
+.main-save-btn {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  padding: 15px;
+  background: #16a34a;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(22, 163, 74, 0.25);
+}
+
+.main-save-btn:active {
+  transform: scale(0.98);
+}
+
+
+/* ---------- BOTTOM NAVIGATION ---------- */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 68px;
+  background: white;
+  border-top: 1px solid #e5e7eb;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  z-index: 200;
+  box-shadow: 0 -3px 15px rgba(0, 0, 0, 0.08);
+}
+
+.nav-item {
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  cursor: pointer;
+}
+
+.nav-item span {
+  font-size: 20px;
+}
+
+.nav-item small {
+  font-size: 10px;
+}
+
+.nav-item.active {
+  color: #111827;
+  font-weight: bold;
+}
+
+
+/* ---------- DESKTOP ---------- */
+
+@media (min-width: 650px) {
+
+  main {
+    padding: 25px;
+  }
+
+  .target-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .summary-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .attendance-card {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .bottom-nav {
+    max-width: 700px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 15px 15px 0 0;
+  }
+
+}
+
+
+/* ---------- LARGE SCREEN ---------- */
+
+@media (min-width: 900px) {
+
+  .app-header {
+    padding-left: calc((100% - 850px) / 2);
+    padding-right: calc((100% - 850px) / 2);
+  }
+
+  .target-card {
+    padding: 24px;
+  }
+
+}
+
+
+/* ---------- SMALL MOBILE ---------- */
+
+@media (max-width: 360px) {
+
+  main {
+    padding: 10px;
+  }
+
+  .target-card,
+  .summary-section,
+  .attendance-section,
+  .calendar-section,
+  .history-section,
+  .notes-section {
+    padding: 14px;
+  }
+
+  .app-header h1 {
+    font-size: 18px;
+  }
+
+  .card-icon {
+    font-size: 27px;
+  }
+
+  .target-card h2 {
+    font-size: 17px;
+  }
+
+  .calendar-day {
+    min-height: 37px;
+    font-size: 11px;
+  }
+
+}
