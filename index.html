@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chhattisgarh Election Survey Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container">
+        <div>
+            <h1>Chhattisgarh Election Survey Analyzer</h1>
+            <p>Candidate Ticket Evaluation & Statistical Assessment</p>
+        </div>
+        <span class="badge">Election Analytics</span>
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="card">
+        <h2>1. Constituency Information</h2>
+
+        <div class="grid">
+            <div class="form-group">
+                <label>State / Region</label>
+                <select id="region">
+                    <option value="Bastar">Bastar Division</option>
+                    <option value="Sarguja">Sarguja Division</option>
+                    <option value="Plain">Plain Region</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Constituency Name</label>
+                <input type="text" id="constituency" placeholder="e.g. Korba">
+            </div>
+
+            <div class="form-group">
+                <label>Assembly Constituency No.</label>
+                <input type="number" id="seatNo" placeholder="e.g. 21">
+            </div>
+
+            <div class="form-group">
+                <label>Seat Category</label>
+                <select id="seatCategory">
+                    <option value="General">General</option>
+                    <option value="ST">ST Reserved</option>
+                    <option value="SC">SC Reserved</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>2. Candidate Information</h2>
+
+        <div class="grid">
+            <div class="form-group">
+                <label>Candidate Name</label>
+                <input type="text" id="candidateName" placeholder="Candidate name">
+            </div>
+
+            <div class="form-group">
+                <label>Candidate Type</label>
+                <select id="candidateType">
+                    <option>Sitting MLA</option>
+                    <option>Former Candidate</option>
+                    <option>New Youth Leader</option>
+                    <option>Senior Party Leader</option>
+                    <option>Social/Community Leader</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Candidate Background</label>
+                <input type="text" id="candidateBackground"
+                       placeholder="e.g. OBC / ST / Sahu">
+            </div>
+
+            <div class="form-group">
+                <label>Key Competitor Party</label>
+                <select id="competitor">
+                    <option>INC</option>
+                    <option>BJP</option>
+                    <option>BSP</option>
+                    <option>GGP</option>
+                    <option>Independent</option>
+                    <option>Regional Party</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Anti-Incumbency</label>
+                <select id="antiIncumbency">
+                    <option value="low">Low</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>3. Survey Data</h2>
+
+        <div class="grid">
+            <div class="form-group">
+                <label>Sample Size (n)</label>
+                <input type="number" id="sampleSize" value="1500" min="100">
+            </div>
+
+            <div class="form-group">
+                <label>Party Vote Share (%)</label>
+                <input type="number" id="partyShare" value="48" min="0" max="100" step="0.1">
+            </div>
+
+            <div class="form-group">
+                <label>Main Competitor Vote Share (%)</label>
+                <input type="number" id="competitorShare" value="43" min="0" max="100" step="0.1">
+            </div>
+
+            <div class="form-group">
+                <label>Undecided / Others (%)</label>
+                <input type="number" id="undecided" value="9" min="0" max="100" step="0.1">
+            </div>
+        </div>
+
+        <div class="community-box">
+            <label>Community / Caste Mix</label>
+            <textarea id="communityMix"
+                placeholder="Example: Sahu 22%, ST 30%, OBC 25%, Others 23%"></textarea>
+        </div>
+
+        <button class="primary-btn" onclick="analyzeElection()">
+            Calculate Election Analysis
+        </button>
+    </section>
+
+    <section id="results" class="results hidden">
+
+        <div class="result-header">
+            <div>
+                <h2>Election Analysis Report</h2>
+                <p id="reportTitle">Constituency Analysis</p>
+            </div>
+
+            <button class="secondary-btn" onclick="window.print()">
+                Print Report
+            </button>
+        </div>
+
+        <div class="metric-grid">
+
+            <div class="metric">
+                <span>Survey Margin</span>
+                <strong id="marginResult">--</strong>
+            </div>
+
+            <div class="metric">
+                <span>Standard Error</span>
+                <strong id="seResult">--</strong>
+            </div>
+
+            <div class="metric">
+                <span>Z-Score</span>
+                <strong id="zResult">--</strong>
+            </div>
+
+            <div class="metric">
+                <span>Estimated Probability</span>
+                <strong id="probabilityResult">--</strong>
+            </div>
+
+        </div>
+
+        <div class="classification">
+            <span>Seat Classification</span>
+            <h2 id="categoryResult">--</h2>
+        </div>
+
+        <div class="card inner-card">
+            <h3>Statistical Interpretation</h3>
+            <p id="statisticalText"></p>
+        </div>
+
+        <div class="card inner-card">
+            <h3>Community / Coalition Assessment</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Voter Bloc</th>
+                            <th>Approx. Share</th>
+                            <th>Candidate Alignment</th>
+                            <th>Assessment</th>
+                        </tr>
+                    </thead>
+                    <tbody id="communityTable">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card inner-card">
+            <h3>Ticket Decision</h3>
+
+            <div id="ticketDecision" class="decision-box"></div>
+
+            <h4>Top 3 Risk Factors</h4>
+            <ul id="riskList"></ul>
+        </div>
+
+        <div class="card inner-card">
+            <h3>Booth-Level Organizational Recommendations</h3>
+
+            <div class="strategy-grid">
+                <div class="strategy">
+                    <span>01</span>
+                    <p>Audit weak booths using historical turnout and party performance data.</p>
+                </div>
+
+                <div class="strategy">
+                    <span>02</span>
+                    <p>Verify polling-agent coverage, voter-list issues and election-day logistics.</p>
+                </div>
+
+                <div class="strategy">
+                    <span>03</span>
+                    <p>Track turnout reporting in real time and prioritize organizational resources where gaps appear.</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    <p>Election Analytics Dashboard • Statistical estimates are survey-based and not election guarantees.</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
