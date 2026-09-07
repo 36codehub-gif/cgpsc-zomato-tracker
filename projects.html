@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,58 +17,69 @@
         </div>
         <nav class="nav-menu">
             <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a>
-            <a href="about.html" class="nav-link"><i class="fa-solid fa-user"></i> About Me</a>
-            <a href="projects.html" class="nav-link active"><i class="fa-solid fa-code"></i> Projects</a>
-            <a href="contact.html" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact</a>
+            <a href="about.html" class="nav-link"><i class="fa-solid fa-user"></i> About</a>
+            <a href="projects.html" class="nav-link active"><i class="fa-solid fa-laptop-code"></i> Projects</a>
+            <a href="contact.html" class="nav-link"><i class="fa-solid fa-paper-plane"></i> Contact</a>
         </nav>
-        <div class="social-links">
-            <a href="https://github.com" target="_blank"><i class="fa-brands fa-github"></i></a>
-            <a href="https://linkedin.com" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="mailto:nilkanthpatel.office@gmail.com"><i class="fa-solid fa-envelope"></i></a>
-        </div>
     </aside>
 
-    <main class="main-content">
-        <section class="page-header">
-            <h1>Featured <span class="highlight">Projects</span></h1>
-            <p>Explore some of the applications and tools I have engineered.</p>
-        </section>
+    <header class="mobile-header">
+        <div class="brand-mobile">
+            <img src="file_00000000afb882078d9ea8c5518d6cb4.png" alt="Nilkanth Patel" class="avatar-sm">
+            <span>Nilkanth Patel</span>
+        </div>
+        <a href="contact.html" class="icon-btn"><i class="fa-solid fa-envelope"></i></a>
+    </header>
 
-        <div class="filter-container">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="fullstack">Full-Stack</button>
-            <button class="filter-btn" data-filter="frontend">Frontend</button>
+    <main class="main-content">
+        <div class="page-title">
+            <h1>Featured <span class="gradient-text">Projects</span></h1>
+            <p>Handpicked engineering solutions</p>
         </div>
 
-        <section class="projects-grid">
-            <div class="project-card" data-category="fullstack">
-                <img src="file_00000000afb882078d9ea8c5518d6cb4.png" alt="Project Thumbnail" class="project-img">
-                <div class="project-content">
-                    <h3>Daily Productivity & Earnings Tracker</h3>
-                    <p>A full-stack tracking dashboard built for real-time study hours & delivery log analytics.</p>
-                    <div class="tags"><span>HTML/CSS</span><span>JavaScript</span><span>Chart.js</span></div>
+        <section class="projects-list">
+            <div class="project-card glass">
+                <img src="file_00000000afb882078d9ea8c5518d6cb4.png" alt="Project Preview">
+                <div class="project-info">
+                    <h3>Productivity & Earnings Tracker</h3>
+                    <p>Real-time analytics app built with interactive Chart.js modules and clean persistence.</p>
+                    <div class="tags">
+                        <span>JS</span><span>Chart.js</span><span>CSS3</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="project-card" data-category="fullstack">
-                <img src="file_00000000afb882078d9ea8c5518d6cb4.png" alt="Project Thumbnail" class="project-img">
-                <div class="project-content">
-                    <h3>E-Commerce Web Portal</h3>
-                    <p>Comprehensive shopping solution with dynamic cart system and secure payment gateway integration.</p>
-                    <div class="tags"><span>Node.js</span><span>Express</span><span>MongoDB</span></div>
-                </div>
-            </div>
-
-            <div class="project-card" data-category="frontend">
-                <img src="file_00000000afb882078d9ea8c5518d6cb4.png" alt="Project Thumbnail" class="project-img">
-                <div class="project-content">
-                    <h3>Professional Portfolio Template</h3>
-                    <p>Multi-page dark mode responsive engineering portfolio website with custom dynamic layouts.</p>
-                    <div class="tags"><span>HTML5</span><span>CSS3</span><span>JavaScript</span></div>
+            <div class="project-card glass">
+                <img src="file_00000000afb882078d9ea8c5518d6cb4.png" alt="Project Preview">
+                <div class="project-info">
+                    <h3>Modern Software Portfolio</h3>
+                    <p>A trending dark glassmorphism responsive portfolio with app-like mobile UX.</p>
+                    <div class="tags">
+                        <span>HTML5</span><span>CSS Glass</span><span>JS</span>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="bottom-nav-link">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+        <a href="about.html" class="bottom-nav-link">
+            <i class="fa-solid fa-user"></i>
+            <span>About</span>
+        </a>
+        <a href="projects.html" class="bottom-nav-link active">
+            <i class="fa-solid fa-laptop-code"></i>
+            <span>Projects</span>
+        </a>
+        <a href="contact.html" class="bottom-nav-link">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Contact</span>
+        </a>
+    </nav>
 
     <script src="script.js"></script>
 </body>
