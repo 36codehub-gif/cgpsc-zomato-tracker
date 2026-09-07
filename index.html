@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CGPSC + Zomato Tracker</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div>
+      <h1>📊 Daily Tracker</h1>
+      <p>CGPSC + Zomato</p>
+    </div>
+
+    <button id="resetBtn" class="reset-btn">
+      Reset
+    </button>
+  </header>
+
+
+  <main>
+
+    <!-- Today's Date -->
+    <section class="date-section">
+      <p id="todayDate">Loading date...</p>
+    </section>
+
+
+    <!-- Target Cards -->
+    <section class="target-grid">
+
+      <!-- CGPSC -->
+      <div class="target-card study-card">
+
+        <div class="card-icon">📚</div>
+
+        <h2>CGPSC Study</h2>
+
+        <p class="target-text">
+          Target: <strong>3 Hours</strong>
+        </p>
+
+        <label for="studyHours">
+          Today's Study Hours
+        </label>
+
+        <input
+          type="number"
+          id="studyHours"
+          min="0"
+          max="24"
+          step="0.5"
+          placeholder="0"
+        >
+
+        <div class="progress-container">
+          <div
+            id="studyProgress"
+            class="progress-bar">
+          </div>
+        </div>
+
+        <p id="studyStatus" class="status">
+          Pending
+        </p>
+
+      </div>
+
+
+      <!-- Zomato -->
+      <div class="target-card work-card">
+
+        <div class="card-icon">🛵</div>
+
+        <h2>Zomato Work</h2>
+
+        <p class="target-text">
+          Target: <strong>12 Hours</strong>
+        </p>
+
+        <label for="workHours">
+          Today's Work Hours
+        </label>
+
+        <input
+          type="number"
+          id="workHours"
+          min="0"
+          max="24"
+          step="0.5"
+          placeholder="0"
+        >
+
+        <div class="progress-container">
+          <div
+            id="workProgress"
+            class="progress-bar">
+          </div>
+        </div>
+
+        <p id="workStatus" class="status">
+          Pending
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- Summary -->
+    <section class="summary-section">
+
+      <h2>📈 Today's Summary</h2>
+
+      <div class="summary-grid">
+
+        <div class="summary-card">
+          <span>Study</span>
+          <strong id="summaryStudy">0h</strong>
+        </div>
+
+        <div class="summary-card">
+          <span>Work</span>
+          <strong id="summaryWork">0h</strong>
+        </div>
+
+        <div class="summary-card">
+          <span>Total</span>
+          <strong id="summaryTotal">0h</strong>
+        </div>
+
+        <div class="summary-card">
+          <span>Status</span>
+          <strong id="dayStatus">Pending</strong>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- Streak -->
+    <section class="streak-section">
+
+      <div class="streak-card">
+
+        <span class="big-icon">🔥</span>
+
+        <div>
+          <p>Current Streak</p>
+
+          <h2>
+            <span id="streakCount">0</span>
+            Days
+          </h2>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- Attendance -->
+    <section class="attendance-section">
+
+      <h2>📊 Overall Attendance</h2>
+
+      <div class="attendance-card">
+
+        <div class="attendance-item">
+          <span>Study Attendance</span>
+          <strong id="studyAttendance">0%</strong>
+        </div>
+
+        <div class="attendance-item">
+          <span>Work Attendance</span>
+          <strong id="workAttendance">0%</strong>
+        </div>
+
+        <div class="attendance-item">
+          <span>Overall</span>
+          <strong id="overallAttendance">0%</strong>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- Calendar -->
+    <section class="calendar-section">
+
+      <div class="section-header">
+
+        <button id="prevMonth" class="month-btn">
+          ◀
+        </button>
+
+        <h2 id="calendarMonth">
+          Month
+        </h2>
+
+        <button id="nextMonth" class="month-btn">
+          ▶
+        </button>
+
+      </div>
+
+
+      <div class="calendar-weekdays">
+
+        <div>Sun</div>
+        <div>Mon</div>
+        <div>Tue</div>
+        <div>Wed</div>
+        <div>Thu</div>
+        <div>Fri</div>
+        <div>Sat</div>
+
+      </div>
+
+
+      <div
+        id="calendarDays"
+        class="calendar-days">
+      </div>
+
+
+      <div class="calendar-legend">
+
+        <span>
+          <i class="legend study"></i>
+          Study
+        </span>
+
+        <span>
+          <i class="legend work"></i>
+          Work
+        </span>
+
+        <span>
+          <i class="legend both"></i>
+          Both
+        </span>
+
+        <span>
+          <i class="legend none"></i>
+          No Data
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- History -->
+    <section class="history-section">
+
+      <div class="section-header">
+        <h2>📋 Attendance History</h2>
+      </div>
+
+      <div class="table-wrapper">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Date</th>
+              <th>Study</th>
+              <th>Work</th>
+              <th>Status</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="historyTable">
+          </tbody>
+
+        </table>
+
+      </div>
+
+      <p
+        id="noHistory"
+        class="no-history">
+        No attendance history yet.
+      </p>
+
+    </section>
+
+
+    <!-- Notes -->
+    <section class="notes-section">
+
+      <h2>📝 Daily Notes</h2>
+
+      <textarea
+        id="dailyNotes"
+        rows="5"
+        placeholder="Write today's study/work notes here..."
+      ></textarea>
+
+      <button
+        id="saveNotesBtn"
+        class="save-btn">
+        Save Notes
+      </button>
+
+      <p
+        id="notesMessage"
+        class="notes-message">
+      </p>
+
+    </section>
+
+
+    <!-- Save -->
+    <section class="save-section">
+
+      <button
+        id="saveTodayBtn"
+        class="main-save-btn">
+        💾 Save Today's Progress
+      </button>
+
+      <p
+        id="saveMessage"
+        class="save-message">
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+
+    <button
+      class="nav-item active"
+      data-section="top">
+
+      <span>🏠</span>
+      <small>Home</small>
+
+    </button>
+
+
+    <button
+      class="nav-item"
+      data-section="calendar">
+
+      <span>📅</span>
+      <small>Calendar</small>
+
+    </button>
+
+
+    <button
+      class="nav-item"
+      data-section="history">
+
+      <span>📋</span>
+      <small>History</small>
+
+    </button>
+
+
+    <button
+      class="nav-item"
+      data-section="notes">
+
+      <span>📝</span>
+      <small>Notes</small>
+
+    </button>
+
+  </nav>
+
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+
+</body>
+</html>
