@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Janmat Chhattisgarh | Public Opinion Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="top-header">
+
+    <div class="brand">
+        <div class="logo">JC</div>
+
+        <div>
+            <h1>Janmat Chhattisgarh</h1>
+            <p>Public Opinion & Election Intelligence</p>
+        </div>
+    </div>
+
+    <div class="header-actions">
+        <button class="icon-btn" id="themeBtn">🌙</button>
+
+        <button class="profile-btn">
+            Admin
+        </button>
+    </div>
+
+</header>
+
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+    <nav>
+
+        <button class="nav-item active" data-page="dashboard">
+            <span>📊</span>
+            Dashboard
+        </button>
+
+        <button class="nav-item" data-page="constituencies">
+            <span>🗺️</span>
+            90 Constituencies
+        </button>
+
+        <button class="nav-item" data-page="survey">
+            <span>📝</span>
+            Public Survey
+        </button>
+
+        <button class="nav-item" data-page="candidates">
+            <span>👤</span>
+            Candidate Analysis
+        </button>
+
+        <button class="nav-item" data-page="issues">
+            <span>📌</span>
+            Public Issues
+        </button>
+
+        <button class="nav-item" data-page="reports">
+            <span>📑</span>
+            Reports
+        </button>
+
+    </nav>
+
+</aside>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main-content">
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<section class="page active-page" id="dashboard">
+
+    <div class="page-heading">
+
+        <div>
+            <h2>State Dashboard</h2>
+            <p>Chhattisgarh public opinion overview</p>
+        </div>
+
+        <div class="date-box" id="currentDate"></div>
+
+    </div>
+
+
+    <!-- STAT CARDS -->
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <div class="stat-icon blue">🏛️</div>
+
+            <div>
+                <span>Total Seats</span>
+                <strong>90</strong>
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-icon green">📈</div>
+
+            <div>
+                <span>Positive Seats</span>
+                <strong id="positiveSeats">31</strong>
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-icon yellow">⚖️</div>
+
+            <div>
+                <span>Competitive</span>
+                <strong id="competitiveSeats">28</strong>
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-icon red">⚠️</div>
+
+            <div>
+                <span>High Risk</span>
+                <strong id="riskSeats">31</strong>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- DASHBOARD GRID -->
+
+    <div class="dashboard-grid">
+
+        <!-- PUBLIC MOOD -->
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h3>Public Mood</h3>
+                    <p>Current survey sentiment</p>
+                </div>
+
+                <span class="status positive">
+                    Updated
+                </span>
+
+            </div>
+
+            <div class="mood-score">
+
+                <div class="score-circle">
+                    <span id="moodScore">62</span>
+                    <small>/100</small>
+                </div>
+
+                <div>
+                    <h4>Moderately Positive</h4>
+                    <p>
+                        Overall public sentiment based on
+                        available survey responses.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CHANGE DEMAND -->
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h3>Public Change Index</h3>
+                    <p>Statewide sentiment</p>
+                </div>
+
+            </div>
+
+            <div class="change-bar">
+
+                <div class="change-progress">
+                    <span id="changeProgress"></span>
+                </div>
+
+                <div class="change-values">
+                    <strong id="changeScore">52%</strong>
+                    <span>Change Demand</span>
+                </div>
+
+            </div>
+
+            <p class="small-note">
+                This is an aggregate survey indicator,
+                not an election prediction.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- CHARTS -->
+
+    <div class="charts-grid">
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h3>Party Perception</h3>
+                    <p>Aggregate survey perception</p>
+                </div>
+
+            </div>
+
+            <canvas id="partyChart"></canvas>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h3>Top Public Issues</h3>
+                    <p>Statewide issue ranking</p>
+                </div>
+
+            </div>
+
+            <canvas id="issuesChart"></canvas>
+
+        </div>
+
+    </div>
+
+
+    <!-- ISSUE LIST -->
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <div>
+                <h3>Top Issues Reported by Public</h3>
+                <p>Aggregate survey responses</p>
+            </div>
+
+        </div>
+
+        <div class="issue-list" id="issueList"></div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= CONSTITUENCIES ================= -->
+
+<section class="page" id="constituencies">
+
+    <div class="page-heading">
+
+        <div>
+            <h2>90 Assembly Constituencies</h2>
+            <p>Constituency-level public opinion</p>
+        </div>
+
+        <button class="primary-btn" id="addDataBtn">
+            + Add Survey Data
+        </button>
+
+    </div>
+
+
+    <div class="filter-bar">
+
+        <input
+            type="text"
+            id="seatSearch"
+            placeholder="Search constituency..."
+        >
+
+        <select id="regionFilter">
+
+            <option value="all">
+                All Regions
+            </option>
+
+            <option value="Bastar">
+                Bastar
+            </option>
+
+            <option value="Sarguja">
+                Sarguja
+            </option>
+
+            <option value="Plain">
+                Plain
+            </option>
+
+        </select>
+
+
+        <select id="statusFilter">
+
+            <option value="all">
+                All Status
+            </option>
+
+            <option value="positive">
+                Positive
+            </option>
+
+            <option value="competitive">
+                Competitive
+            </option>
+
+            <option value="risk">
+                High Risk
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="table-panel">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>AC No.</th>
+                    <th>Constituency</th>
+                    <th>Region</th>
+                    <th>Party Share</th>
+                    <th>Competitor</th>
+                    <th>Change Index</th>
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="constituencyTable"></tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= SURVEY ================= -->
+
+<section class="page" id="survey">
+
+    <div class="page-heading">
+
+        <div>
+            <h2>Public Opinion Survey</h2>
+            <p>Enter anonymous aggregate survey information</p>
+        </div>
+
+    </div>
+
+
+    <div class="form-panel">
+
+        <div class="form-section">
+
+            <h3>Survey Location</h3>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>Constituency</label>
+
+                    <select id="surveySeat"></select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Survey Sample Size</label>
+
+                    <input
+                        type="number"
+                        id="surveySample"
+                        placeholder="e.g. 500"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Survey Date</label>
+
+                    <input
+                        type="date"
+                        id="surveyDate"
+                    >
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-section">
+
+            <h3>Public Sentiment</h3>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>Government Rating</label>
+
+                    <select id="govRating">
+
+                        <option value="1">1 - Very Poor</option>
+                        <option value="2">2 - Poor</option>
+                        <option value="3">3 - Average</option>
+                        <option value="4">4 - Good</option>
+                        <option value="5">5 - Excellent</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Local MLA Rating</label>
+
+                    <select id="mlaRating">
+
+                        <option value="1">1 - Very Poor</option>
+                        <option value="2">2 - Poor</option>
+                        <option value="3">3 - Average</option>
+                        <option value="4">4 - Good</option>
+                        <option value="5">5 - Excellent</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Change Demand</label>
+
+                    <select id="changeDemand">
+
+                        <option value="high">High</option>
+                        <option value="moderate">Moderate</option>
+                        <option value="low">Low</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-section">
+
+            <h3>Party Perception</h3>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>Party Vote Share %</label>
+
+                    <input
+                        type="number"
+                        id="surveyParty"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        placeholder="48"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Main Competitor %</label>
+
+                    <input
+                        type="number"
+                        id="surveyCompetitor"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        placeholder="43"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Undecided / Others %</label>
+
+                    <input
+                        type="number"
+                        id="surveyUndecided"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        placeholder="9"
+                    >
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-section">
+
+            <h3>Top Issues</h3>
+
+            <div class="checkbox-grid">
+
+                <label>
+                    <input type="checkbox" value="Employment">
+                    Employment
+                </label>
+
+                <label>
+                    <input type="checkbox" value="Roads">
+                    Roads & Infrastructure
+                </label>
+
+                <label>
+                    <input type="checkbox" value="Agriculture">
+                    Agriculture
+                </label>
+
+                <label>
+                    <input type="checkbox" value="Healthcare">
+                    Healthcare
+                </label>
+
+                <label>
+                    <input type="checkbox" value="Education">
+                    Education
+                </label>
+
+                <label>
+                    <input type="checkbox" value="Water">
+                    Water
+                </label>
+
+                <label>
+                    <input type="checkbox" value="Electricity">
+                    Electricity
+                </label>
+
+                <label>
+                    <input type="checkbox" value="Women Safety">
+                    Women & Safety
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-actions">
+
+            <button
+                class="primary-btn"
+                id="saveSurvey"
+            >
+                Save Survey
+            </button>
+
+            <button
+                class="secondary-btn"
+                id="clearSurvey"
+            >
+                Clear
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= CANDIDATES ================= -->
+
+<section class="page" id="candidates">
+
+    <div class="page-heading">
+
+        <div>
+            <h2>Candidate Analysis</h2>
+            <p>Candidate evaluation framework</p>
+        </div>
+
+    </div>
+
+
+    <div class="candidate-form panel">
+
+        <h3>Add Candidate</h3>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Candidate Name</label>
+
+                <input
+                    id="candidateName"
+                    placeholder="Candidate name"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Constituency</label>
+
+                <select id="candidateSeat"></select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Candidate Type</label>
+
+                <select id="candidateType">
+
+                    <option>Sitting MLA</option>
+                    <option>Former Candidate</option>
+                    <option>New Leader</option>
+                    <option>Senior Leader</option>
+                    <option>Community Leader</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Recognition Score</label>
+
+                <input
+                    type="number"
+                    id="recognition"
+                    min="0"
+                    max="100"
+                    placeholder="0-100"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Acceptability Score</label>
+
+                <input
+                    type="number"
+                    id="acceptability"
+                    min="0"
+                    max="100"
+                    placeholder="0-100"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Negative Perception</label>
+
+                <input
+                    type="number"
+                    id="negative"
+                    min="0"
+                    max="100"
+                    placeholder="0-100"
+                >
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="primary-btn"
+            id="saveCandidate"
+        >
+            Calculate Candidate Index
+        </button>
+
+    </div>
+
+
+    <div class="candidate-result panel hidden" id="candidateResult">
+
+        <h3>Candidate Evaluation</h3>
+
+        <div class="candidate-score">
+
+            <div class="big-score">
+                <span id="candidateScore">0</span>
+                <small>/100</small>
+            </div>
+
+            <div>
+                <h4 id="candidateDecision">
+                    —
+                </h4>
+
+                <p id="candidateDescription"></p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= ISSUES ================= -->
+
+<section class="page" id="issues">
+
+    <div class="page-heading">
+
+        <div>
+            <h2>Public Issues</h2>
+            <p>What citizens report as their most important concerns</p>
+        </div>
+
+    </div>
+
+
+    <div class="issues-dashboard">
+
+        <div class="panel">
+
+            <h3>Issue Ranking</h3>
+
+            <div id="issueRanking"></div>
+
+        </div>
+
+
+        <div class="panel">
+
+            <h3>Government vs Local Issues</h3>
+
+            <canvas id="issueDoughnut"></canvas>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= REPORTS ================= -->
+
+<section class="page" id="reports">
+
+    <div class="page-heading">
+
+        <div>
+            <h2>Reports</h2>
+            <p>Survey and constituency intelligence reports</p>
+        </div>
+
+        <button
+            class="primary-btn"
+            onclick="window.print()"
+        >
+            Print Report
+        </button>
+
+    </div>
+
+
+    <div class="report-grid">
+
+        <div class="report-card">
+
+            <span>📊</span>
+
+            <h3>State Opinion Report</h3>
+
+            <p>
+                Statewide public sentiment,
+                issues and change index.
+            </p>
+
+            <button onclick="generateReport()">
+                Generate
+            </button>
+
+        </div>
+
+
+        <div class="report-card">
+
+            <span>🗺️</span>
+
+            <h3>90 Seat Report</h3>
+
+            <p>
+                Constituency-level survey
+                overview.
+            </p>
+
+            <button onclick="generateReport()">
+                Generate
+            </button>
+
+        </div>
+
+
+        <div class="report-card">
+
+            <span>👤</span>
+
+            <h3>Candidate Report</h3>
+
+            <p>
+                Candidate evaluation
+                and comparison.
+            </p>
+
+            <button onclick="generateReport()">
+                Generate
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- ================= MODAL ================= -->
+
+<div class="modal hidden" id="dataModal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h3>Add Quick Survey Data</h3>
+
+            <button id="closeModal">×</button>
+
+        </div>
+
+        <p>
+            Add aggregate constituency data for analysis.
+        </p>
+
+        <div class="form-group">
+
+            <label>Constituency</label>
+
+            <select id="modalSeat"></select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Party Vote Share %</label>
+
+            <input
+                type="number"
+                id="modalParty"
+                placeholder="48"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Competitor Vote Share %</label>
+
+            <input
+                type="number"
+                id="modalCompetitor"
+                placeholder="43"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label>Change Index %</label>
+
+            <input
+                type="number"
+                id="modalChange"
+                placeholder="52"
+            >
+
+        </div>
+
+        <button
+            class="primary-btn full-btn"
+            id="saveQuickData"
+        >
+            Save Data
+        </button>
+
+    </div>
+
+</div>
+
+
+<div id="toast"></div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
