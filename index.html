@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,7 @@
 </head>
 <body>
 
+    <!-- Sidebar Navigation for Desktop -->
     <aside class="sidebar">
         <div class="profile-container">
             <img src="file_00000000afb882078d9ea8c5518d6cb4.png" alt="Nilkanth Patel" class="profile-img">
@@ -17,57 +18,79 @@
         </div>
         <nav class="nav-menu">
             <a href="index.html" class="nav-link active"><i class="fa-solid fa-house"></i> Home</a>
-            <a href="about.html" class="nav-link"><i class="fa-solid fa-user"></i> About Me</a>
-            <a href="projects.html" class="nav-link"><i class="fa-solid fa-code"></i> Projects</a>
-            <a href="contact.html" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact</a>
+            <a href="about.html" class="nav-link"><i class="fa-solid fa-user"></i> About</a>
+            <a href="projects.html" class="nav-link"><i class="fa-solid fa-laptop-code"></i> Projects</a>
+            <a href="contact.html" class="nav-link"><i class="fa-solid fa-paper-plane"></i> Contact</a>
         </nav>
-        <div class="social-links">
-            <a href="https://github.com" target="_blank"><i class="fa-brands fa-github"></i></a>
-            <a href="https://linkedin.com" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="mailto:nilkanthpatel.office@gmail.com"><i class="fa-solid fa-envelope"></i></a>
-        </div>
     </aside>
 
+    <!-- App Top Bar for Mobile -->
+    <header class="mobile-header">
+        <div class="brand-mobile">
+            <img src="file_00000000afb882078d9ea8c5518d6cb4.png" alt="Nilkanth Patel" class="avatar-sm">
+            <span>Nilkanth Patel</span>
+        </div>
+        <a href="contact.html" class="icon-btn"><i class="fa-solid fa-envelope"></i></a>
+    </header>
+
+    <!-- Main Content Area -->
     <main class="main-content">
-        <section class="hero-section">
-            <div class="hero-text">
-                <span class="badge">Welcome to my Portfolio</span>
-                <h1>Hi, I'm <span class="highlight">Nilkanth Patel</span></h1>
-                <h3>Software Engineer | BCA Computer Science</h3>
-                <p>I build scalable web applications, sleek user interfaces, and robust backend systems.</p>
-                <div class="btn-group">
-                    <a href="projects.html" class="btn btn-primary">View Projects</a>
-                    <a href="contact.html" class="btn btn-secondary">Contact Me</a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <img src="file_00000000afb882078d9ea8c5518d6cb4.png" alt="Software Engineering">
+        <section class="hero-card glass">
+            <span class="status-badge"><i class="fa-solid fa-circle"></i> Available for Opportunities</span>
+            <h1>Hi, I'm <span class="gradient-text">Nilkanth Patel</span></h1>
+            <h2>Software Engineer (BCA CS)</h2>
+            <p>Building next-gen responsive web applications, robust backends, and digital experiences.</p>
+            
+            <div class="btn-group">
+                <a href="projects.html" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Projects</a>
+                <a href="contact.html" class="btn btn-secondary"><i class="fa-solid fa-paper-plane"></i> Hire Me</a>
             </div>
         </section>
 
-        <section class="quick-stats">
-            <div class="stat-card">
+        <section class="stats-grid">
+            <div class="stat-card glass">
                 <i class="fa-solid fa-graduation-cap"></i>
-                <h3>Degree</h3>
-                <p>BCA Computer Science</p>
+                <div>
+                    <h4>Degree</h4>
+                    <p>BCA Computer Science</p>
+                </div>
             </div>
-            <div class="stat-card">
-                <i class="fa-solid fa-laptop-code"></i>
-                <h3>Experience</h3>
-                <p>Software Engineering</p>
+            <div class="stat-card glass">
+                <i class="fa-solid fa-code"></i>
+                <div>
+                    <h4>Specialization</h4>
+                    <p>Full-Stack Engineering</p>
+                </div>
             </div>
-            <div class="stat-card">
-                <i class="fa-solid fa-phone"></i>
-                <h3>Phone</h3>
-                <p>+91 91111717276</p>
-            </div>
-            <div class="stat-card">
-                <i class="fa-solid fa-envelope"></i>
-                <h3>Email</h3>
-                <p>nilkanthpatel.office@gmail.com</p>
+            <div class="stat-card glass">
+                <i class="fa-solid fa-mobile-screen-button"></i>
+                <div>
+                    <h4>UI/UX Strategy</h4>
+                    <p>Mobile-First Design</p>
+                </div>
             </div>
         </section>
     </main>
+
+    <!-- Bottom Navigation Bar for Mobile -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="bottom-nav-link active">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+        <a href="about.html" class="bottom-nav-link">
+            <i class="fa-solid fa-user"></i>
+            <span>About</span>
+        </a>
+        <a href="projects.html" class="bottom-nav-link">
+            <i class="fa-solid fa-laptop-code"></i>
+            <span>Projects</span>
+        </a>
+        <a href="contact.html" class="bottom-nav-link">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Contact</span>
+        </a>
+    </nav>
 
     <script src="script.js"></script>
 </body>
