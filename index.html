@@ -1,216 +1,74 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Productivity & Earnings Tracker</title>
+    <title>Nilkanth Patel | Software Engineer</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar">
-            <div class="brand">
-                <i class="fa-solid fa-chart-line logo-icon"></i>
-                <h2>LifeTracker</h2>
+
+    <aside class="sidebar">
+        <div class="profile-container">
+            <img src="file_00000000afb882078d9ea8c5518d6cb4.png" alt="Nilkanth Patel" class="profile-img">
+            <h2>Nilkanth Patel</h2>
+            <p>Software Engineer</p>
+        </div>
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-link active"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="about.html" class="nav-link"><i class="fa-solid fa-user"></i> About Me</a>
+            <a href="projects.html" class="nav-link"><i class="fa-solid fa-code"></i> Projects</a>
+            <a href="contact.html" class="nav-link"><i class="fa-solid fa-envelope"></i> Contact</a>
+        </nav>
+        <div class="social-links">
+            <a href="https://github.com" target="_blank"><i class="fa-brands fa-github"></i></a>
+            <a href="https://linkedin.com" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="mailto:nilkanthpatel.office@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <section class="hero-section">
+            <div class="hero-text">
+                <span class="badge">Welcome to my Portfolio</span>
+                <h1>Hi, I'm <span class="highlight">Nilkanth Patel</span></h1>
+                <h3>Software Engineer | BCA Computer Science</h3>
+                <p>I build scalable web applications, sleek user interfaces, and robust backend systems.</p>
+                <div class="btn-group">
+                    <a href="projects.html" class="btn btn-primary">View Projects</a>
+                    <a href="contact.html" class="btn btn-secondary">Contact Me</a>
+                </div>
             </div>
-            <nav class="nav-menu">
-                <button class="nav-btn active" data-tab="dashboard">
-                    <i class="fa-solid fa-house"></i> Dashboard
-                </button>
-                <button class="nav-btn" data-tab="zomato">
-                    <i class="fa-solid fa-motorcycle"></i> Zomato Work
-                </button>
-                <button class="nav-btn" data-tab="cgpsc">
-                    <i class="fa-solid fa-book-open"></i> CGPSC Study
-                </button>
-                <button class="nav-btn" data-tab="analytics">
-                    <i class="fa-solid fa-chart-pie"></i> Analytics
-                </button>
-            </nav>
-            <div class="user-profile">
-                <i class="fa-solid fa-circle-user avatar"></i>
-                <div class="user-info">
-                    <h4>User Profile</h4>
-                    <span>Active Member</span>
-                </div>
+            <div class="hero-image">
+                <img src="file_00000000afb882078d9ea8c5518d6cb4.png" alt="Software Engineering">
             </div>
-        </aside>
+        </section>
 
-        <!-- Main Content Area -->
-        <main class="main-content">
-            <header class="top-header">
-                <div class="date-display">
-                    <i class="fa-regular fa-calendar-days"></i>
-                    <span id="current-date">Today</span>
-                </div>
-                <div class="quick-stats">
-                    <div class="badge earnings-badge">Earnings: <strong id="header-earnings">₹0</strong></div>
-                    <div class="badge study-badge">Study: <strong id="header-study-hours">0 hrs</strong></div>
-                </div>
-            </header>
-
-            <!-- Dashboard Tab -->
-            <section id="dashboard" class="tab-content active">
-                <div class="welcome-banner">
-                    <h1>Dashboard Overview</h1>
-                    <p>Track your earnings and study progress in one place.</p>
-                </div>
-                
-                <div class="kpi-grid">
-                    <div class="kpi-card text-emerald">
-                        <div class="kpi-header"><span>Total Earnings</span> <i class="fa-solid fa-indian-rupee-sign"></i></div>
-                        <h2 id="total-earnings">₹0</h2>
-                        <small>Zomato Delivery</small>
-                    </div>
-                    <div class="kpi-card text-rose">
-                        <div class="kpi-header"><span>Total Deliveries</span> <i class="fa-solid fa-box"></i></div>
-                        <h2 id="total-deliveries">0</h2>
-                        <small>Orders Completed</small>
-                    </div>
-                    <div class="kpi-card text-indigo">
-                        <div class="kpi-header"><span>Study Hours</span> <i class="fa-solid fa-clock"></i></div>
-                        <h2 id="total-study-hours">0 hrs</h2>
-                        <small>CGPSC Prep</small>
-                    </div>
-                    <div class="kpi-card text-amber">
-                        <div class="kpi-header"><span>Topics Completed</span> <i class="fa-solid fa-check-double"></i></div>
-                        <h2 id="total-topics">0</h2>
-                        <small>Sessions Logged</small>
-                    </div>
-                </div>
-
-                <div class="dashboard-charts">
-                    <div class="chart-container">
-                        <h3>Weekly Activity Balance</h3>
-                        <canvas id="overviewChart"></canvas>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Zomato Tab -->
-            <section id="zomato" class="tab-content">
-                <div class="two-column-layout">
-                    <div class="card-form">
-                        <h3><i class="fa-solid fa-plus-circle"></i> Log Delivery Work</h3>
-                        <form id="zomato-form">
-                            <div class="form-group">
-                                <label for="zomato-date">Date</label>
-                                <input type="date" id="zomato-date" required>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="zomato-hours">Work Hours</label>
-                                    <input type="number" step="0.5" id="zomato-hours" placeholder="e.g. 5" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="zomato-deliveries">Deliveries</label>
-                                    <input type="number" id="zomato-deliveries" placeholder="e.g. 12" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="zomato-earnings">Earnings (₹)</label>
-                                <input type="number" id="zomato-earnings" placeholder="e.g. 650" required>
-                            </div>
-                            <button type="submit" class="btn btn-zomato">Add Entry</button>
-                        </form>
-                    </div>
-
-                    <div class="card-table">
-                        <h3>Delivery History</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Hours</th>
-                                    <th>Orders</th>
-                                    <th>Earned</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="zomato-table-body"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CGPSC Tab -->
-            <section id="cgpsc" class="tab-content">
-                <div class="two-column-layout">
-                    <div class="card-form">
-                        <h3><i class="fa-solid fa-plus-circle"></i> Log Study Session</h3>
-                        <form id="cgpsc-form">
-                            <div class="form-group">
-                                <label for="cgpsc-date">Date</label>
-                                <input type="date" id="cgpsc-date" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="cgpsc-subject">Subject</label>
-                                <select id="cgpsc-subject" required>
-                                    <option value="">Select Subject</option>
-                                    <option value="History">History</option>
-                                    <option value="Polity">Polity</option>
-                                    <option value="Geography">Geography</option>
-                                    <option value="Economy">Economy</option>
-                                    <option value="CG GK">CG GK</option>
-                                    <option value="Aptitude">Aptitude</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="cgpsc-hours">Hours Studied</label>
-                                <input type="number" step="0.5" id="cgpsc-hours" placeholder="e.g. 3.5" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="cgpsc-topic">Topic Covered</label>
-                                <input type="text" id="cgpsc-topic" placeholder="e.g. Panchayati Raj" required>
-                            </div>
-                            <button type="submit" class="btn btn-cgpsc">Add Entry</button>
-                        </form>
-                    </div>
-
-                    <div class="card-table">
-                        <h3>Study History</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Subject</th>
-                                    <th>Hours</th>
-                                    <th>Topic</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="cgpsc-table-body"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Analytics Tab -->
-            <section id="analytics" class="tab-content">
-                <div class="analytics-grid">
-                    <div class="chart-card">
-                        <h3>Earnings Growth Trend</h3>
-                        <canvas id="earningsTrendChart"></canvas>
-                    </div>
-                    <div class="chart-card">
-                        <h3>Study Hours Progress</h3>
-                        <canvas id="studyTrendChart"></canvas>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
+        <section class="quick-stats">
+            <div class="stat-card">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <h3>Degree</h3>
+                <p>BCA Computer Science</p>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-laptop-code"></i>
+                <h3>Experience</h3>
+                <p>Software Engineering</p>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-phone"></i>
+                <h3>Phone</h3>
+                <p>+91 91111717276</p>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-envelope"></i>
+                <h3>Email</h3>
+                <p>nilkanthpatel.office@gmail.com</p>
+            </div>
+        </section>
+    </main>
 
     <script src="script.js"></script>
 </body>
 </html>
-<div class="user-profile">
-    <img src="file_00000000afb882078d9ea8c5518d6cb4.png" alt="User Profile" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
-    <div class="user-info">
-        <h4>User Profile</h4>
-        <span>Active Member</span>
-    </div>
-</div>
