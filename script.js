@@ -1,1104 +1,331 @@
-/* =========================================
-   CGPSC + ZOMATO DAILY TRACKER
-   script.js
-========================================= */
+// LocalStorage Keys
+const ZOMATO_KEY = 'zomato_logs';
+const CGPSC_KEY = 'cgpsc_logs';
 
+// App State
+let zomatoLogs = JSON.parse(localStorage.getItem(ZOMATO_KEY)) || [];
+let cgpscLogs = JSON.parse(localStorage.getItem(CGPSC_KEY)) || [];
 
-/* ---------- SETTINGS ---------- */
+// DOM Elements
+const navBtns = document.querySelectorAll('.nav-btn');
+const tabContents = document.querySelectorAll('.tab-content');
+const currentDateEl = document.getElementById('current-date');
 
-const STUDY_TARGET = 3;
-const WORK_TARGET = 12;
+// Header Badges
+const headerEarnings = document.getElementById('header-earnings');
+const headerStudyHours = document.getElementById('header-study-hours');
 
-const STORAGE_KEY = "cgpscZomatoTrackerData";
-const NOTES_KEY = "cgpscZomatoTrackerNotes";
+// Dashboard KPI Elements
+const totalEarningsEl = document.getElementById('total-earnings');
+const totalDeliveriesEl = document.getElementById('total-deliveries');
+const totalStudyHoursEl = document.getElementById('total-study-hours');
+const totalTopicsEl = document.getElementById('total-topics');
 
+// Chart Contexts
+let overviewChart, earningsTrendChart, studyTrendChart;
 
-/* ---------- VARIABLES ---------- */
+// Initialize App
+document.addEventListener('DOMContentLoaded', () => {
+    setCurrentDate();
+    setupNavigation();
+    setupFormListeners();
+    updateUI();
+    initCharts();
+});
 
-let trackerData =
-  JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-
-let currentDate = new Date();
-
-let selectedDate = getDateKey(new Date());
-
-
-/* ---------- DOM ELEMENTS ---------- */
-
-const studyHoursInput = document.getElementById("studyHours");
-const workHoursInput = document.getElementById("workHours");
-
-const studyProgress = document.getElementById("studyProgress");
-const workProgress = document.getElementById("workProgress");
-
-const studyStatus = document.getElementById("studyStatus");
-const workStatus = document.getElementById("workStatus");
-
-const summaryStudy = document.getElementById("summaryStudy");
-const summaryWork = document.getElementById("summaryWork");
-const summaryTotal = document.getElementById("summaryTotal");
-const dayStatus = document.getElementById("dayStatus");
-
-const streakCount = document.getElementById("streakCount");
-
-const studyAttendance =
-  document.getElementById("studyAttendance");
-
-const workAttendance =
-  document.getElementById("workAttendance");
-
-const overallAttendance =
-  document.getElementById("overallAttendance");
-
-const calendarMonth =
-  document.getElementById("calendarMonth");
-
-const calendarDays =
-  document.getElementById("calendarDays");
-
-const historyTable =
-  document.getElementById("historyTable");
-
-const noHistory =
-  document.getElementById("noHistory");
-
-const dailyNotes =
-  document.getElementById("dailyNotes");
-
-const saveMessage =
-  document.getElementById("saveMessage");
-
-const notesMessage =
-  document.getElementById("notesMessage");
-
-const todayDate =
-  document.getElementById("todayDate");
-
-
-/* ---------- DATE FUNCTIONS ---------- */
-
-/*
-  Converts Date object to:
-  YYYY-MM-DD
-*/
-
-function getDateKey(date) {
-
-  const year = date.getFullYear();
-
-  const month =
-    String(date.getMonth() + 1).padStart(2, "0");
-
-  const day =
-    String(date.getDate()).padStart(2, "0");
-
-  return `${year}-${month}-${day}`;
+// Set Current Date in Header
+function setCurrentDate() {
+    const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+    currentDateEl.textContent = new Date().toLocaleDateString('en-IN', options);
 }
 
+// Navigation & Tab Switching
+function setupNavigation() {
+    navBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.getAttribute('data-tab');
 
-/*
-  Convert YYYY-MM-DD into readable date
-*/
+            navBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
 
-function formatDate(dateKey) {
+            btn.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
 
-  const parts = dateKey.split("-");
-
-  const date = new Date(
-    Number(parts[0]),
-    Number(parts[1]) - 1,
-    Number(parts[2])
-  );
-
-  return date.toLocaleDateString("en-IN", {
-    day: "numeric",
-    month: "short",
-    year: "numeric"
-  });
-}
-
-
-/*
-  Today's date display
-*/
-
-function updateTodayDate() {
-
-  const today = new Date();
-
-  todayDate.textContent =
-    today.toLocaleDateString("en-IN", {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-      year: "numeric"
+            if (tabId === 'analytics') {
+                updateAnalyticsCharts();
+            }
+        });
     });
 }
 
+// Form Event Listeners
+function setupFormListeners() {
+    // Zomato Form Submit
+    document.getElementById('zomato-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const newLog = {
+            id: Date.now(),
+            date: document.getElementById('zomato-date').value,
+            hours: parseFloat(document.getElementById('zomato-hours').value) || 0,
+            deliveries: parseInt(document.getElementById('zomato-deliveries').value) || 0,
+            earnings: parseFloat(document.getElementById('zomato-earnings').value) || 0
+        };
 
-/* ---------- LOAD TODAY ---------- */
+        zomatoLogs.push(newLog);
+        saveData();
+        e.target.reset();
+        setDefaultDates();
+    });
 
-function loadToday() {
+    // CGPSC Form Submit
+    document.getElementById('cgpsc-form').addEventListener('submit', (e) => {
+        e.preventDefault();
 
-  selectedDate = getDateKey(new Date());
+        const newLog = {
+            id: Date.now(),
+            date: document.getElementById('cgpsc-date').value,
+            subject: document.getElementById('cgpsc-subject').value,
+            hours: parseFloat(document.getElementById('cgpsc-hours').value) || 0,
+            topic: document.getElementById('cgpsc-topic').value
+        };
 
-  const data = trackerData[selectedDate];
+        cgpscLogs.push(newLog);
+        saveData();
+        e.target.reset();
+        setDefaultDates();
+    });
 
-  if (data) {
-
-    studyHoursInput.value =
-      data.study || "";
-
-    workHoursInput.value =
-      data.work || "";
-
-  } else {
-
-    studyHoursInput.value = "";
-
-    workHoursInput.value = "";
-  }
-
-  loadNotes();
-
-  updateProgress();
-
+    setDefaultDates();
 }
 
-
-/* ---------- GET INPUT VALUES ---------- */
-
-function getStudyHours() {
-
-  let value =
-    parseFloat(studyHoursInput.value);
-
-  if (isNaN(value) || value < 0) {
-    value = 0;
-  }
-
-  return value;
+// Set Today's Date as Default in Forms
+function setDefaultDates() {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('zomato-date').value = today;
+    document.getElementById('cgpsc-date').value = today;
 }
 
-
-function getWorkHours() {
-
-  let value =
-    parseFloat(workHoursInput.value);
-
-  if (isNaN(value) || value < 0) {
-    value = 0;
-  }
-
-  return value;
+// Save to LocalStorage & Refresh UI
+function saveData() {
+    localStorage.setItem(ZOMATO_KEY, JSON.stringify(zomatoLogs));
+    localStorage.setItem(CGPSC_KEY, JSON.stringify(cgpscLogs));
+    updateUI();
 }
 
-
-/* ---------- UPDATE PROGRESS ---------- */
-
-function updateProgress() {
-
-  const study =
-    getStudyHours();
-
-  const work =
-    getWorkHours();
-
-
-  /* Study Progress */
-
-  let studyPercent =
-    (study / STUDY_TARGET) * 100;
-
-  studyPercent =
-    Math.min(studyPercent, 100);
-
-  studyProgress.style.width =
-    `${studyPercent}%`;
-
-
-  /* Work Progress */
-
-  let workPercent =
-    (work / WORK_TARGET) * 100;
-
-  workPercent =
-    Math.min(workPercent, 100);
-
-  workProgress.style.width =
-    `${workPercent}%`;
-
-
-  /* Study Status */
-
-  if (study >= STUDY_TARGET) {
-
-    studyStatus.textContent =
-      "✓ Target Completed";
-
-    studyStatus.classList.add("completed");
-
-  } else {
-
-    studyStatus.textContent =
-      `${Math.max(0, STUDY_TARGET - study)}h remaining`;
-
-    studyStatus.classList.remove("completed");
-  }
-
-
-  /* Work Status */
-
-  if (work >= WORK_TARGET) {
-
-    workStatus.textContent =
-      "✓ Target Completed";
-
-    workStatus.classList.add("completed");
-
-  } else {
-
-    workStatus.textContent =
-      `${Math.max(0, WORK_TARGET - work)}h remaining`;
-
-    workStatus.classList.remove("completed");
-  }
-
-
-  /* Summary */
-
-  summaryStudy.textContent =
-    `${study}h`;
-
-  summaryWork.textContent =
-    `${work}h`;
-
-  summaryTotal.textContent =
-    `${study + work}h`;
-
-
-  /* Day Status */
-
-  if (
-    study >= STUDY_TARGET &&
-    work >= WORK_TARGET
-  ) {
-
-    dayStatus.textContent =
-      "✓ Complete";
-
-  } else if (
-    study > 0 ||
-    work > 0
-  ) {
-
-    dayStatus.textContent =
-      "In Progress";
-
-  } else {
-
-    dayStatus.textContent =
-      "Pending";
-  }
-
+// Global UI Update
+function updateUI() {
+    renderZomatoTable();
+    renderCgpscTable();
+    updateKPIs();
+    updateOverviewChart();
 }
 
+// Render Zomato History Table
+function renderZomatoTable() {
+    const tbody = document.getElementById('zomato-table-body');
+    tbody.innerHTML = '';
 
-/* ---------- SAVE TODAY ---------- */
-
-function saveToday() {
-
-  const study =
-    getStudyHours();
-
-  const work =
-    getWorkHours();
-
-
-  trackerData[selectedDate] = {
-
-    study: study,
-
-    work: work,
-
-    notes:
-      trackerData[selectedDate]?.notes || ""
-
-  };
-
-
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(trackerData)
-  );
-
-
-  updateProgress();
-
-  updateAttendance();
-
-  updateStreak();
-
-  renderCalendar();
-
-  renderHistory();
-
-
-  saveMessage.textContent =
-    "✓ Today's progress saved!";
-
-
-  setTimeout(() => {
-
-    saveMessage.textContent = "";
-
-  }, 2500);
-
+    zomatoLogs.slice().reverse().forEach(log => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${log.date}</td>
+            <td>${log.hours} hrs</td>
+            <td>${log.deliveries}</td>
+            <td>₹${log.earnings}</td>
+            <td><button class="delete-btn" onclick="deleteZomatoLog(${log.id})"><i class="fa-solid fa-trash"></i></button></td>
+        `;
+        tbody.appendChild(tr);
+    });
 }
 
+// Render CGPSC History Table
+function renderCgpscTable() {
+    const tbody = document.getElementById('cgpsc-table-body');
+    tbody.innerHTML = '';
 
-/* ---------- ATTENDANCE ---------- */
-
-function updateAttendance() {
-
-  const dates =
-    Object.keys(trackerData);
-
-
-  if (dates.length === 0) {
-
-    studyAttendance.textContent = "0%";
-
-    workAttendance.textContent = "0%";
-
-    overallAttendance.textContent = "0%";
-
-    return;
-  }
-
-
-  let studyCompleted = 0;
-
-  let workCompleted = 0;
-
-  let totalCompleted = 0;
-
-
-  dates.forEach(date => {
-
-    const data =
-      trackerData[date];
-
-    const study =
-      Number(data.study) || 0;
-
-    const work =
-      Number(data.work) || 0;
-
-
-    if (study >= STUDY_TARGET) {
-      studyCompleted++;
-    }
-
-
-    if (work >= WORK_TARGET) {
-      workCompleted++;
-    }
-
-
-    if (
-      study >= STUDY_TARGET &&
-      work >= WORK_TARGET
-    ) {
-      totalCompleted++;
-    }
-
-  });
-
-
-  const studyPercent =
-    Math.round(
-      (studyCompleted / dates.length) * 100
-    );
-
-
-  const workPercent =
-    Math.round(
-      (workCompleted / dates.length) * 100
-    );
-
-
-  const overallPercent =
-    Math.round(
-      (totalCompleted / dates.length) * 100
-    );
-
-
-  studyAttendance.textContent =
-    `${studyPercent}%`;
-
-  workAttendance.textContent =
-    `${workPercent}%`;
-
-  overallAttendance.textContent =
-    `${overallPercent}%`;
-
+    cgpscLogs.slice().reverse().forEach(log => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${log.date}</td>
+            <td>${log.subject}</td>
+            <td>${log.hours} hrs</td>
+            <td>${log.topic}</td>
+            <td><button class="delete-btn" onclick="deleteCgpscLog(${log.id})"><i class="fa-solid fa-trash"></i></button></td>
+        `;
+        tbody.appendChild(tr);
+    });
 }
 
+// Delete Handlers
+window.deleteZomatoLog = function(id) {
+    zomatoLogs = zomatoLogs.filter(log => log.id !== id);
+    saveData();
+};
 
-/* ---------- STREAK ---------- */
+window.deleteCgpscLog = function(id) {
+    cgpscLogs = cgpscLogs.filter(log => log.id !== id);
+    saveData();
+};
 
-function updateStreak() {
+// Calculate and Update Dashboard KPIs
+function updateKPIs() {
+    const totalEarnings = zomatoLogs.reduce((sum, log) => sum + log.earnings, 0);
+    const totalDeliveries = zomatoLogs.reduce((sum, log) => sum + log.deliveries, 0);
+    const totalStudyHours = cgpscLogs.reduce((sum, log) => sum + log.hours, 0);
+    const totalTopics = cgpscLogs.length;
 
-  let streak = 0;
+    totalEarningsEl.textContent = `₹${totalEarnings.toLocaleString('en-IN')}`;
+    totalDeliveriesEl.textContent = totalDeliveries;
+    totalStudyHoursEl.textContent = `${totalStudyHours} hrs`;
+    totalTopicsEl.textContent = totalTopics;
 
-  let date =
-    new Date();
-
-
-  while (true) {
-
-    const key =
-      getDateKey(date);
-
-    const data =
-      trackerData[key];
-
-
-    if (
-      data &&
-      Number(data.study) >= STUDY_TARGET &&
-      Number(data.work) >= WORK_TARGET
-    ) {
-
-      streak++;
-
-      date.setDate(
-        date.getDate() - 1
-      );
-
-    } else {
-
-      break;
-    }
-
-  }
-
-
-  streakCount.textContent =
-    streak;
-
+    headerEarnings.textContent = `₹${totalEarnings.toLocaleString('en-IN')}`;
+    headerStudyHours.textContent = `${totalStudyHours} hrs`;
 }
 
+// Chart.js Configuration
+function initCharts() {
+    const ctxOverview = document.getElementById('overviewChart').getContext('2d');
+    const ctxEarnings = document.getElementById('earningsTrendChart').getContext('2d');
+    const ctxStudy = document.getElementById('studyTrendChart').getContext('2d');
 
-/* ---------- CALENDAR ---------- */
+    overviewChart = new Chart(ctxOverview, {
+        type: 'bar',
+        data: {
+            labels: [],
+            datasets: [
+                {
+                    label: 'Earnings (₹)',
+                    backgroundColor: '#e23744',
+                    data: [],
+                    yAxisID: 'y'
+                },
+                {
+                    label: 'Study Hours',
+                    backgroundColor: '#6366f1',
+                    data: [],
+                    yAxisID: 'y1'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    type: 'linear',
+                    position: 'left',
+                    ticks: { color: '#94a3b8' },
+                    grid: { color: '#334155' }
+                },
+                y1: {
+                    type: 'linear',
+                    position: 'right',
+                    ticks: { color: '#94a3b8' },
+                    grid: { drawOnChartArea: false }
+                },
+                x: {
+                    ticks: { color: '#94a3b8' },
+                    grid: { color: '#334155' }
+                }
+            },
+            plugins: {
+                legend: { labels: { color: '#f8fafc' } }
+            }
+        }
+    });
 
-function renderCalendar() {
+    earningsTrendChart = new Chart(ctxEarnings, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Earnings (₹)',
+                borderColor: '#e23744',
+                backgroundColor: 'rgba(226, 55, 68, 0.2)',
+                fill: true,
+                data: [],
+                tension: 0.3
+            }]
+        },
+        options: getChartOptions()
+    });
 
-  calendarDays.innerHTML = "";
+    studyTrendChart = new Chart(ctxStudy, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Study Hours',
+                borderColor: '#6366f1',
+                backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                fill: true,
+                data: [],
+                tension: 0.3
+            }]
+        },
+        options: getChartOptions()
+    });
 
-
-  const year =
-    currentDate.getFullYear();
-
-  const month =
-    currentDate.getMonth();
-
-
-  calendarMonth.textContent =
-    currentDate.toLocaleDateString(
-      "en-IN",
-      {
-        month: "long",
-        year: "numeric"
-      }
-    );
-
-
-  const firstDay =
-    new Date(
-      year,
-      month,
-      1
-    ).getDay();
-
-
-  const daysInMonth =
-    new Date(
-      year,
-      month + 1,
-      0
-    ).getDate();
-
-
-  /* Empty spaces before first day */
-
-  for (
-    let i = 0;
-    i < firstDay;
-    i++
-  ) {
-
-    const empty =
-      document.createElement("div");
-
-    empty.className =
-      "calendar-day empty";
-
-    calendarDays.appendChild(empty);
-  }
-
-
-  /* Calendar dates */
-
-  for (
-    let day = 1;
-    day <= daysInMonth;
-    day++
-  ) {
-
-    const cell =
-      document.createElement("div");
-
-    cell.className =
-      "calendar-day";
-
-    cell.textContent =
-      day;
-
-
-    const dateKey =
-      `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-
-
-    const data =
-      trackerData[dateKey];
-
-
-    if (data) {
-
-      const study =
-        Number(data.study) || 0;
-
-      const work =
-        Number(data.work) || 0;
-
-
-      const studyDone =
-        study >= STUDY_TARGET;
-
-      const workDone =
-        work >= WORK_TARGET;
-
-
-      if (
-        studyDone &&
-        workDone
-      ) {
-
-        cell.classList.add(
-          "both-day"
-        );
-
-      } else if (studyDone) {
-
-        cell.classList.add(
-          "study-day"
-        );
-
-      } else if (workDone) {
-
-        cell.classList.add(
-          "work-day"
-        );
-      }
-
-    }
-
-
-    /* Highlight today */
-
-    if (
-      dateKey ===
-      getDateKey(new Date())
-    ) {
-
-      cell.classList.add(
-        "today"
-      );
-    }
-
-
-    /* Click calendar date */
-
-    cell.addEventListener(
-      "click",
-      () => {
-
-        selectedDate =
-          dateKey;
-
-        loadSelectedDate(
-          dateKey
-        );
-
-      }
-    );
-
-
-    calendarDays.appendChild(cell);
-
-  }
-
+    updateOverviewChart();
 }
 
-
-/* ---------- LOAD SELECTED DATE ---------- */
-
-function loadSelectedDate(dateKey) {
-
-  const data =
-    trackerData[dateKey];
-
-
-  if (data) {
-
-    studyHoursInput.value =
-      data.study || "";
-
-    workHoursInput.value =
-      data.work || "";
-
-  } else {
-
-    studyHoursInput.value = "";
-
-    workHoursInput.value = "";
-  }
-
-
-  loadNotesForDate(dateKey);
-
-  updateProgress();
-
-
-  saveMessage.textContent =
-    `Viewing ${formatDate(dateKey)}`;
-
-
-  setTimeout(() => {
-
-    saveMessage.textContent = "";
-
-  }, 2000);
-
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-
-}
-
-
-/* ---------- HISTORY ---------- */
-
-function renderHistory() {
-
-  historyTable.innerHTML = "";
-
-
-  const dates =
-    Object.keys(trackerData)
-      .sort()
-      .reverse();
-
-
-  if (dates.length === 0) {
-
-    noHistory.style.display =
-      "block";
-
-    return;
-
-  }
-
-
-  noHistory.style.display =
-    "none";
-
-
-  dates.forEach(dateKey => {
-
-    const data =
-      trackerData[dateKey];
-
-
-    const study =
-      Number(data.study) || 0;
-
-    const work =
-      Number(data.work) || 0;
-
-
-    const studyDone =
-      study >= STUDY_TARGET;
-
-    const workDone =
-      work >= WORK_TARGET;
-
-
-    let status =
-      "Pending";
-
-
-    if (
-      studyDone &&
-      workDone
-    ) {
-
-      status = "✓ Complete";
-
-    } else if (
-      study > 0 ||
-      work > 0
-    ) {
-
-      status = "In Progress";
-    }
-
-
-    const row =
-      document.createElement("tr");
-
-
-    row.innerHTML = `
-      <td>${formatDate(dateKey)}</td>
-      <td>${study}h</td>
-      <td>${work}h</td>
-      <td>${status}</td>
-    `;
-
-
-    historyTable.appendChild(row);
-
-  });
-
-}
-
-
-/* ---------- NOTES ---------- */
-
-function loadNotes() {
-
-  loadNotesForDate(
-    selectedDate
-  );
-
-}
-
-
-function loadNotesForDate(dateKey) {
-
-  const data =
-    trackerData[dateKey];
-
-  if (data && data.notes) {
-
-    dailyNotes.value =
-      data.notes;
-
-  } else {
-
-    dailyNotes.value = "";
-  }
-
-}
-
-
-/* ---------- SAVE NOTES ---------- */
-
-function saveNotes() {
-
-  const notes =
-    dailyNotes.value;
-
-
-  if (!trackerData[selectedDate]) {
-
-    trackerData[selectedDate] = {
-
-      study: 0,
-
-      work: 0,
-
-      notes: notes
-
+function getChartOptions() {
+    return {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } },
+            x: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } }
+        },
+        plugins: {
+            legend: { labels: { color: '#f8fafc' } }
+        }
     };
-
-  } else {
-
-    trackerData[selectedDate].notes =
-      notes;
-  }
-
-
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(trackerData)
-  );
-
-
-  notesMessage.textContent =
-    "✓ Notes saved!";
-
-
-  setTimeout(() => {
-
-    notesMessage.textContent = "";
-
-  }, 2000);
-
-
-  renderHistory();
-
 }
 
-
-/* ---------- MONTH NAVIGATION ---------- */
-
-document
-  .getElementById("prevMonth")
-  .addEventListener(
-    "click",
-    () => {
-
-      currentDate.setMonth(
-        currentDate.getMonth() - 1
-      );
-
-      renderCalendar();
-
-    }
-  );
-
-
-document
-  .getElementById("nextMonth")
-  .addEventListener(
-    "click",
-    () => {
-
-      currentDate.setMonth(
-        currentDate.getMonth() + 1
-      );
-
-      renderCalendar();
-
-    }
-  );
-
-
-/* ---------- INPUT EVENTS ---------- */
-
-studyHoursInput.addEventListener(
-  "input",
-  updateProgress
-);
-
-
-workHoursInput.addEventListener(
-  "input",
-  updateProgress
-);
-
-
-/* ---------- SAVE BUTTON ---------- */
-
-document
-  .getElementById("saveTodayBtn")
-  .addEventListener(
-    "click",
-    saveToday
-  );
-
-
-/* ---------- NOTES BUTTON ---------- */
-
-document
-  .getElementById("saveNotesBtn")
-  .addEventListener(
-    "click",
-    saveNotes
-  );
-
-
-/* ---------- RESET BUTTON ---------- */
-
-document
-  .getElementById("resetBtn")
-  .addEventListener(
-    "click",
-    () => {
-
-      const confirmation =
-        confirm(
-          "Are you sure you want to delete ALL attendance and notes?"
-        );
-
-
-      if (!confirmation) {
-        return;
-      }
-
-
-      trackerData = {};
-
-      localStorage.removeItem(
-        STORAGE_KEY
-      );
-
-
-      localStorage.removeItem(
-        NOTES_KEY
-      );
-
-
-      selectedDate =
-        getDateKey(new Date());
-
-
-      loadToday();
-
-      updateAttendance();
-
-      updateStreak();
-
-      renderCalendar();
-
-      renderHistory();
-
-
-      alert(
-        "All data has been reset."
-      );
-
-    }
-  );
-
-
-/* ---------- BOTTOM NAVIGATION ---------- */
-
-const navItems =
-  document.querySelectorAll(
-    ".nav-item"
-  );
-
-
-navItems.forEach(item => {
-
-  item.addEventListener(
-    "click",
-    () => {
-
-      navItems.forEach(
-        nav =>
-          nav.classList.remove(
-            "active"
-          )
-      );
-
-
-      item.classList.add(
-        "active"
-      );
-
-
-      const section =
-        item.dataset.section;
-
-
-      if (
-        section === "top"
-      ) {
-
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
-
-      }
-
-
-      if (
-        section === "calendar"
-      ) {
-
-        document
-          .querySelector(
-            ".calendar-section"
-          )
-          .scrollIntoView({
-            behavior: "smooth"
-          });
-
-      }
-
-
-      if (
-        section === "history"
-      ) {
-
-        document
-          .querySelector(
-            ".history-section"
-          )
-          .scrollIntoView({
-            behavior: "smooth"
-          });
-
-      }
-
-
-      if (
-        section === "notes"
-      ) {
-
-        document
-          .querySelector(
-            ".notes-section"
-          )
-          .scrollIntoView({
-            behavior: "smooth"
-          });
-
-      }
-
-    }
-  );
-
-});
-
-
-/* ---------- INITIALIZE APP ---------- */
-
-function initializeApp() {
-
-  updateTodayDate();
-
-  loadToday();
-
-  updateAttendance();
-
-  updateStreak();
-
-  renderCalendar();
-
-  renderHistory();
-
+// Update Overview Chart Data
+function updateOverviewChart() {
+    if (!overviewChart) return;
+
+    const dates = [...new Set([...zomatoLogs.map(l => l.date), ...cgpscLogs.map(l => l.date)])].sort();
+    const recentDates = dates.slice(-7);
+
+    const earningsData = recentDates.map(date => {
+        const log = zomatoLogs.find(l => l.date === date);
+        return log ? log.earnings : 0;
+    });
+
+    const studyData = recentDates.map(date => {
+        const logs = cgpscLogs.filter(l => l.date === date);
+        return logs.reduce((sum, l) => sum + l.hours, 0);
+    });
+
+    overviewChart.data.labels = recentDates;
+    overviewChart.data.datasets[0].data = earningsData;
+    overviewChart.data.datasets[1].data = studyData;
+    overviewChart.update();
 }
 
+// Update Detailed Analytics Tab Charts
+function updateAnalyticsCharts() {
+    if (!earningsTrendChart || !studyTrendChart) return;
 
-/* Start */
+    // Earnings Data
+    const zomatoSorted = [...zomatoLogs].sort((a, b) => new Date(a.date) - new Date(b.date));
+    earningsTrendChart.data.labels = zomatoSorted.map(l => l.date);
+    earningsTrendChart.data.datasets[0].data = zomatoSorted.map(l => l.earnings);
+    earningsTrendChart.update();
 
-initializeApp();
+    // Study Data Aggregated by Date
+    const studyByDate = cgpscLogs.reduce((acc, log) => {
+        acc[log.date] = (acc[log.date] || 0) + log.hours;
+        return acc;
+    }, {});
+
+    const sortedStudyDates = Object.keys(studyByDate).sort();
+    studyTrendChart.data.labels = sortedStudyDates;
+    studyTrendChart.data.datasets[0].data = sortedStudyDates.map(date => studyByDate[date]);
+    studyTrendChart.update();
+}
